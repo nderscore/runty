@@ -2,34 +2,55 @@
 
 Extensible conditional string templates.
 
+------
+
 ## Features
 
-* Basic string tokens
+* Zero dependencies
+* Variable interpolation 
 * Conditional branching
-* Nesting
-* Extensible with custom functions
+* Nested expressions
+* Extensible with custom functions, or a standard library of functions
+* Parse templates once, execute them multiple times with different values
+* Use non-string tokens (such as React components) with array format option
 
+This library is still under active development and should be considered beta/experimental.
 
-## Grammar
+------
 
-* Runty templates are a string containing a sequence of plain strings and runty expressions.
-* White space is always preserved. Reserved characters can be escaped with a `\` prefix.
-* Runty expressions are delimited by `{}`'s and come in two flavors:
-    * Value expressions: `{%someVariable}` / `{$someFunction()}`
-    * Conditional expressions: `{%someVariable?if case:else case}` / `{$someFunction()?if case}` (else case is optional)
-* An expression should contain either a variable reference (`%variableName`) or a function call (`$someFunction(%someVar,foo)`).
-* Conditional expressions will resolve to `true` for any truthy value or for the number `0`.
-* Function calls may accept any number of arguments, which must be either `%variables`, `plain strings`, or nested `$functionCalls()`
-* The `if case` and `else case` of a conditional expression are treated as templates and may contain nested expressions.
+## Documentation
 
+* [Installation](#installation)
+* [Quick Examples](#quick-examples)
+* [Template Syntax](docs/syntax.md)
+* [API Reference](docs/api.md)
+* [Standard Library (fns)](docs/fns.md)
+* [Extending With Custom Functions](docs/custom-fns.md)
 
-## Basic Usage
+------
 
+## Installation
+
+```shell
+$ npm install runty
+
+or
+
+$ yarn add runty
+```
+
+------
+
+## Quick Examples
+
+### Conditional Interpolations
+
+This example uses simple conditional variable interpolations.
 
 ```javascript
 import { runty } from 'runty';
 
-// create a client
+// create a parser
 const runt = runty();
 
 // compile a template
@@ -52,8 +73,30 @@ console.log(anotherTemplate(['Albuquerque']));
 // "Unknown Artist - Albuquerque"
 ```
 
+### Using Functions
 
-## Extending With Functions
+This example uses [standard library `fns`](docs/fns.md).
+
+```javascript
+import { runty, fns } from 'runty';
+
+const runt = runty({ fns });
+
+const template = runt('{$gt(%count,0)?There {$eq(%count,1)?is:are} {%count} item{$not($eq(%count,1))?s} in your cart:Your cart is empty}.');
+
+console.log(template({ count: 0 }));
+// "Your cart is empty."
+
+console.log(template({ count: 1 }));
+// "There is 1 item in your cart."
+
+console.log(template({ count: 2 }));
+// "There are 2 items in your cart."
+```
+
+### Extending With Custom Functions
+
+This example doesn't use the standard libary and defines a custom set of functions.
 
 ```javascript
 import { runty } from 'runty';
@@ -86,29 +129,9 @@ console.log(anotherTemplate());
 // This is neither.
 ```
 
-
-### Runty Standard Library Functions
-
-Documentation and additional functions to come soon...
-
-```javascript
-import { runty, fns } from 'runty';
-
-const runt = runty({ fns });
-
-const template = runt('{$gt(%count,0)?There {$eq(%count,1)?is:are} {%count} item{$not($eq(%count,1))?s} in your cart:Your cart is empty}.');
-
-console.log(template({ count: 0 }));
-// "Your cart is empty."
-
-console.log(template({ count: 1 }));
-// "There is 1 item in your cart."
-
-console.log(template({ count: 3 }));
-// "There are 3 items in your cart."
-```
-
 ### Getting Template Result As An Array
+
+In some cases, such as React, it may be useful to interpolate non-stringifiable values in a string template, so you can retrieve the result as an array. 
 
 ```jsx
 import React from 'react';
@@ -118,21 +141,19 @@ const runt = runty({ asArray: true });
 
 const template = runt('Drop a react component {%component} into your templates.');
 
-const App = () => {
+const Component = () => {
   const values = template({ component: <button key="foo" /> });
 
   return (
     <div>
-      {values} // ['Drop a react component ', <button key="foo" />, ' into your template']
+      {values} // renders: ['Drop a react component ', <button key="foo" />, ' into your template']
     </div>
   );
 };
-```
 
-```jsx
-// Alternatively, get an array result at time of template execution by passing true as the second argument:
-const runt = runty();
-const template = runt('Drop a react component {%component} into your template.');
-template({ component: <button key="foo" /> }, true);
+// Or get an array result at time of template compilation by passing true as the second argument:
+const template = runt('Drop a react component {%component} into your template.', true);
+
+template({ component: <button key="foo" /> });
 // ['Drop a react component ', <button key="foo" />, ' into your template']
 ```
