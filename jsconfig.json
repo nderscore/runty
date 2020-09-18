@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "module": "es2020",
+    "paths": {
+      "runty": ["./src/index"],
+      "runty/*": ["./src/*"]
+    },
+    "target": "es2015"
+  },
+  "exclude": ["node_modules"]
+}
