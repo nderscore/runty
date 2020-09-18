@@ -1,8 +1,15 @@
 {
   "name": "runty",
   "author": "_nderscore",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Extensible conditional string templates",
+  "keywords": [
+    "string",
+    "template",
+    "interpolation",
+    "substitution",
+    "expansion"
+  ],
   "license": "MIT",
   "scripts": {
     "build": "yarn build:esm && yarn build:cjs",
@@ -13,9 +20,10 @@
     "preversion": "yarn test",
     "prepublishOnly": "yarn build"
   },
+  "homepage": "https://github.com/nderscore/runty#readme",
   "repository": {
     "type": "git",
-    "url": "ssh://git@github.com:nderscore/runty.git"
+    "url": "https://github.com/nderscore/runty"
   },
   "engines": {
     "node": ">= 8"

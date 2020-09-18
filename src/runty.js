@@ -4,18 +4,18 @@ import { parse } from './parse';
 export const runty = (options = {}) => {
   const opts = {
     asArray: false,
-    functions: {},
+    fns: {},
     maxDepth: 8,
     ...options,
   };
 
-  return (template) => {
+  return (template, templateAsArray) => {
     const tree = parse(template, opts);
 
-    return (variables = {}, asArray) => {
+    return (variables = {}, executeAsArray) => {
       const result = execute(tree, variables);
 
-      if (asArray ?? opts.asArray) return result;
+      if (executeAsArray ?? templateAsArray ?? opts.asArray) return result;
 
       return result.join('');
     };
