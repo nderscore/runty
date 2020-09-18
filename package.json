@@ -1,7 +1,7 @@
 {
   "name": "runty",
   "author": "_nderscore",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Extensible conditional string templates",
   "license": "MIT",
   "scripts": {
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "ssh//git@github.com/nderscore/rusty.git"
+    "url": "ssh://git@github.com:nderscore/runty.git"
   },
   "engines": {
     "node": ">= 8"
