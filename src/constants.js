@@ -10,7 +10,7 @@ export const TOKENS = {
   STRING_ELSE: /^(?:\\.|[^{}])*/,
   STRING_FUNCTION: /^(?:\\.|[^,)])*/,
   STRING_OUTER: /^(?:\\.|[^{])*/,
-  VARIABLE: /^%(\w*)/,
+  VARIABLE: /^%(\w+(?:\.\w+)*)/,
 };
 
 export const MODES = {
@@ -23,6 +23,6 @@ export const MODES = {
 
 export const CONDITION = { RUNTY_CONDITION: null };
 
-export const GETTER_FN = ([name], variables) => {
-  return variables[name] ?? '';
+export const GETTER_FN = ([...names], variables) => {
+  return names.reduce((acc, next) => acc[next] ?? '', variables);
 };

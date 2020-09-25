@@ -1,58 +1,59 @@
 # Runty Template Syntax
 
-## Grammar
+## Syntax
 
-**Runty Templates** are a string containing a sequence of plain strings and runty expressions.
+* **Templates** are a string containing a sequence of plain strings and expressions.
 
-**Runty Expressions** are delimited by curly braces `{}`'s and come in two types:
+* **Expressions** are delimited by a pair of `{}`'s and come in two types:
 
-1.  **Value Expressions**
+    1.  **Value Expression**
 
-    Places a value at a specific point in a string template.
+        Places a value at a specific point in a string template.
 
-    ```
-    This is a template {%someVariable} with value expressions {$someFunction()}
-    ```
+        ```
+        This is a template {%someVariable} with value expressions {$someFunction()}
+        ```
 
-2.  **Conditional Expressions**
+    2.  **Conditional Expression**
 
-    Evaluates a condition, then conditionally renders one of two template strings using ternary (`?:`) syntax.
+        Evaluates a condition, then conditionally places one of two template strings using ternary (`?:`) syntax.
+        If the condition is either truthy or the number `0`, the expression will resolve to the string after the `?`.
+        Otherwise, it will resolve to the string after the `:`. The `:` is optional and if excluded, an empty 
+        string `''` will be placed if the condition is falsey.
 
-    If the condition is either truthy or Number `0`, the truthy case string will be placed.
+        ```
+        {%someVariable?truthy string:falsey string} {$someFunction(%anotherVariable,foo)?truthy string only}
+        ```
 
-    The else case is optional and if excluded, an empty string `''` will be placed.
+        Additional expressions can be nested inside of the truthy/falsey case.
 
-    ```
-    {%someVariable?truthy string:falsey case} {$someFunction(%anotherVariable,foo)?truthy case only}
-    ```
+        ```
+        Welcome, {%firstName?{%firstName}{%lastName? {%lastName}}:Guest}!
+        ```
 
-    You may nest expressions within the truthy or falsey case.
+*   Value expressions and the condition of a conditional expression contain either a **Variable Reference** or a **Function Call**.
 
-    ```
-    {%firstName?Hello, {%firstName}{%lastName? {%lastName}}:Welcome}
-    ```
+    *   **Variable References** are indicated by a `%` followed by a property name or a chain of `.`-separated property names. They retrieve values from the dictionary of variables passed to the template at the time of execution.
 
-*   All expressions should contain either a **Variable Reference** or a **Function Call**.
+        ```
+        %variableName
+        %some.deepValue
+        %some.deeper.value
+        ```
 
-*   **Variable References** are delimited by a `%` prefix. They retrieve values from the dictionary of variables passed to the template at the time of execution.
+    *   **Function Calls** are indicated by a `$` followed by a function name and suffixed with a list of `,`-separated arguments wrapped in `()`'s.
 
-    ```
-    %variableName
-    ```
+        ```
+        $functionName()
+        ```
 
-*   **Function Calls** are delimited by a `$` prefix and are suffixed by `()`'s with a list of `,`-separated arguments inside.
+        Valid arguments for function calls are variable references, plain strings, and nested function calls. Functions may accept any number of arguments.
 
-    ```
-    $functionName()
-    ```
-
-    They may accept any number of arguments, which must be either Variables Reference, plain strings, or nested Function Calls.
-
-    ```
-    $functionName(%arg1,plain string)
-    $fnOne(%var,$fnTwo(%otherVar,foo))
-    ```
+        ```
+        $functionName(%arg1,plain string)
+        $fnOne(%var,$fnTwo(%otherVar,foo))
+        ```
 
 * White space is always preserved and is interpretted as being part of a plain string.
 
-* Reserved characters (`{}?:`) can be prefixed with a `\` to escape them.
+* Reserved characters (`{}?:`) can be escaped with a `\` prefix. Reserved characters are context-specific. For example, a `}` that is not within an expression does not need to be escaped.

@@ -2,7 +2,7 @@
 
 TODO: Write a guide.
 
-See `src/fns/` source folder for a list of available functions.
+See [src/fns/](../src/fns) source folder for a list of available functions.
 
 ```javascript
 // import the entire library

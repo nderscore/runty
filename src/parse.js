@@ -99,11 +99,7 @@ export const parse = (template, options) => {
       case MODES.EXPRESSION: {
         const [variableToken, variableName] = getToken(TOKENS.VARIABLE);
         if (variableToken) {
-          if (!variableName) {
-            throw new Error();
-          }
-
-          branch.push(GETTER_FN, variableName);
+          branch.push(GETTER_FN, ...variableName.split('.'));
 
           const [conditionToken] = getToken(TOKENS.IF_START);
           if (conditionToken) {
@@ -177,11 +173,7 @@ export const parse = (template, options) => {
 
         const [variableToken, variableName] = getToken(TOKENS.VARIABLE);
         if (variableToken) {
-          if (!variableName) {
-            throw new Error();
-          }
-
-          branch.push([GETTER_FN, variableName]);
+          branch.push([GETTER_FN, ...variableName.split('.')]);
         } else {
           const [stringToken] = getToken(TOKENS.STRING_FUNCTION);
           if (stringToken) {

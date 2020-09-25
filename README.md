@@ -1,18 +1,18 @@
 # runty
 
-Extensible conditional string templates.
+Extensible conditional string micro templates.
 
 ------
 
 ## Features
 
-* Zero dependencies
-* Variable interpolation 
-* Conditional branching
-* Nested expressions
-* Extensible with custom functions, or a standard library of functions
-* Parse templates once, execute them multiple times with different values
-* Use non-string tokens (such as React components) with array format option
+* Simple, but powerful template syntax
+* Conditional string rendering with support for nested expressions
+* Variable (interpolation / subsitution / expansion) with support for property accessor chaining 
+* Parse/compile your templates once, execute them multiple times with different values
+* Support for array output, allowing substitution of non-string values (such as React components) 
+* Extensible with custom functions (or use our [Standard Library (fns)](docs/fns.md))
+* Bundle-bloat friendly. Small, tree-shakeable library with zero dependencies
 
 This library is still under active development and should be considered beta/experimental.
 
@@ -131,7 +131,8 @@ console.log(anotherTemplate());
 
 ### Getting Template Result As An Array
 
-In some cases, such as React, it may be useful to interpolate non-stringifiable values in a string template, so you can retrieve the result as an array. 
+In some cases, it may be useful to interpolate non-stringifiable values in a string template. For example, it
+may be useful to insert a React component into a string template.
 
 ```jsx
 import React from 'react';
@@ -151,9 +152,9 @@ const Component = () => {
   );
 };
 
-// Or get an array result at time of template compilation by passing true as the second argument:
-const template = runt('Drop a react component {%component} into your template.', true);
+// or get an array result at time of template compilation:
+runt('Drop a react component {%component} into your template.', true);
 
-template({ component: <button key="foo" /> });
-// ['Drop a react component ', <button key="foo" />, ' into your template']
+// or at the time of execution:
+template({ component: <button key="foo" /> }, true);
 ```
