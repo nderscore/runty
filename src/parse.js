@@ -1,4 +1,4 @@
-import { CONDITION, GETTER_FN, MODES, TOKENS } from './constants';
+import { CONDITION, MODES, TOKENS, getterFn, stripEscapes } from './constants';
 
 // FIXME: Populate errors with useful syntax error messages
 
@@ -66,7 +66,7 @@ export const parse = (template, options) => {
         const [stringToken] = getToken(stringPattern);
 
         if (stringToken) {
-          branch.push(stringToken);
+          branch.push(stripEscapes(stringToken));
           break;
         }
 
@@ -99,7 +99,7 @@ export const parse = (template, options) => {
       case MODES.EXPRESSION: {
         const [variableToken, variableName] = getToken(TOKENS.VARIABLE);
         if (variableToken) {
-          branch.push(GETTER_FN, ...variableName.split('.'));
+          branch.push(getterFn, ...variableName.split('.'));
 
           const [conditionToken] = getToken(TOKENS.IF_START);
           if (conditionToken) {
@@ -173,11 +173,11 @@ export const parse = (template, options) => {
 
         const [variableToken, variableName] = getToken(TOKENS.VARIABLE);
         if (variableToken) {
-          branch.push([GETTER_FN, ...variableName.split('.')]);
+          branch.push([getterFn, ...variableName.split('.')]);
         } else {
           const [stringToken] = getToken(TOKENS.STRING_FUNCTION);
           if (stringToken) {
-            branch.push(stringToken);
+            branch.push(stripEscapes(stringToken));
           } else {
             throw new Error();
           }

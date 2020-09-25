@@ -1,1 +1,1 @@
-export { GETTER_FUNCTION as get } from '../constants';
+export { getterFn as get } from '../constants';

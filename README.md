@@ -141,7 +141,7 @@ import { runty } from 'runty';
 // trigger an array result while initializing runty:
 const runt = runty({ asArray: true });
 
-const template = ('Drop a react component {%component} into your template.');
+const template = runt('Drop a react component {%component} into your template.');
 
 const Component = () => {
   const values = template({ component: <button key="foo" /> });

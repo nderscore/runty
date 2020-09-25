@@ -56,4 +56,4 @@
 
 * White space is always preserved and is interpretted as being part of a plain string.
 
-* Reserved characters (`{}?:`) can be escaped with a `\` prefix. Reserved characters are context-specific. For example, a `}` that is not within an expression does not need to be escaped.
+* Reserved characters (`{}?:()%$`) can be escaped with a `\` prefix. Reserved characters are context-aware. For example, a `}` that is not within an expression does not need to be escaped.

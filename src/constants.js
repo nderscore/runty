@@ -23,6 +23,8 @@ export const MODES = {
 
 export const CONDITION = { RUNTY_CONDITION: null };
 
-export const GETTER_FN = ([...names], variables) => {
-  return names.reduce((acc, next) => acc[next] ?? '', variables);
+export const getterFn = (propertyNames, variables) => {
+  return propertyNames.reduce((acc, next) => acc[next] ?? '', variables);
 };
+
+export const stripEscapes = (str) => str.replace(/\\(.)/g, (_, capture) => capture);
