@@ -96,7 +96,7 @@ console.log(template({ count: 2 }));
 
 ### Extending With Custom Functions
 
-This example doesn't use the standard libary and defines a custom set of functions.
+This example defines it's own custom functions to make available to templates.
 
 ```javascript
 import { runty } from 'runty';
@@ -138,16 +138,17 @@ may be useful to insert a React component into a string template.
 import React from 'react';
 import { runty } from 'runty';
 
+// trigger an array result while initializing runty:
 const runt = runty({ asArray: true });
 
-const template = runt('Drop a react component {%component} into your templates.');
+const template = ('Drop a react component {%component} into your template.');
 
 const Component = () => {
   const values = template({ component: <button key="foo" /> });
 
   return (
     <div>
-      {values} // renders: ['Drop a react component ', <button key="foo" />, ' into your template']
+      {values} // renders: ['Drop a react component ', <button key="foo" />, ' into your template.']
     </div>
   );
 };

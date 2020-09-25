@@ -4,7 +4,7 @@
 
 * **Templates** are a string containing a sequence of plain strings and expressions.
 
-* **Expressions** are delimited by a pair of `{}`'s and come in two types:
+* **Expressions** are wrapped by a pair of `{}`'s and come in two types:
 
     1.  **Value Expression**
 
