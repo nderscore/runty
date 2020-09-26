@@ -27,4 +27,4 @@ export const getterFn = (propertyNames, variables) => {
   return propertyNames.reduce((acc, next) => acc[next] ?? '', variables);
 };
 
-export const stripEscapes = (str) => str.replace(/\\(.)/g, (_, capture) => capture);
+export const stripEscapes = (str) => str.replace(/\\(.)/g, '$1');
