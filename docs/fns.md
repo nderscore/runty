@@ -4,11 +4,20 @@ TODO: Write a guide.
 
 See [src/fns/](../src/fns) source folder for a list of available functions.
 
+See [src/tests/fns/](../src/tests/fns) tests for usage examples.
+
 ```javascript
 // import the entire library
 import { runty, fns } from 'runty';
 
 const runt = runty({ fns });
+```
+
+```javascript
+// or a class of functions
+import { runty, stringFns } from 'runty';
+
+const runt = runty({ stringFns });
 ```
 
 ```javascript

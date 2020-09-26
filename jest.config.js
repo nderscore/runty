@@ -2,7 +2,6 @@ module.exports = {
   collectCoverageFrom: ['src/**/*.js'],
   moduleNameMapper: {
     '^runty$': '<rootDir>/src/index.js',
-    '^runty/(.+)$': '<rootDir>/src/$1',
   },
   roots: ['<rootDir>/tests'],
   testMatch: [

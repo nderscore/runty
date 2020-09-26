@@ -1,2 +1,2 @@
-export { runty } from './runty';
 export * from './fns';
+export { runty } from './runty';

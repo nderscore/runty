@@ -33,13 +33,17 @@
 
 *   Value expressions and the condition of a conditional expression contain either a **Variable Reference** or a **Function Call**.
 
-    *   **Variable References** are indicated by a `%` followed by a property name or a chain of `.`-separated property names. They retrieve values from the dictionary of variables passed to the template at the time of execution.
+    *   **Variable References** are indicated by a `%` followed by a property name or a chain of `.`-separated
+    property names. They retrieve values from the dictionary of variables passed to the template at the time of
+    execution.
 
         ```
         %variableName
         %some.deepValue
         %some.deeper.value
         ```
+
+        If a value is not found, a variable reference will resolve to an empty string `''`.
 
     *   **Function Calls** are indicated by a `$` followed by a function name and suffixed with a list of `,`-separated arguments wrapped in `()`'s.
 
@@ -56,4 +60,5 @@
 
 * White space is always preserved and is interpretted as being part of a plain string.
 
-* Reserved characters (`{}?:()%$`) can be escaped with a `\` prefix. Reserved characters are context-aware. For example, a `}` that is not within an expression does not need to be escaped.
+* Reserved characters (`{}?:)%$`) can be escaped with a `\` prefix. Reserved characters are context-aware. For
+  example, a `}` that is not within an expression does not need to be escaped.
