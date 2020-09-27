@@ -1,4 +1,4 @@
-import { CONDITION, MODES, TOKENS, getterFn, stripEscapes } from './constants';
+import { CONDITION, MODES, RSyntaxError, TOKENS, getterFn, stripEscapes } from './constants';
 
 // FIXME: Populate errors with useful syntax error messages
 
@@ -13,7 +13,6 @@ export const parse = (template, options) => {
   let mode = MODES.TOP;
 
   const getToken = (regex) => {
-    if (!regex) throw new Error();
     const result = restTemplate.match(regex);
 
     if (!result || result[0].length === 0) return [];
@@ -47,12 +46,12 @@ export const parse = (template, options) => {
   };
 
   const terminateBranch = () => {
-    [mode, branch] = stack.pop() ?? [];
+    [mode, branch] = stack.pop();
   };
 
   while (restTemplate.length > 0) {
     if (stack.length > maxDepth) {
-      throw new Error();
+      throw new RSyntaxError(RSyntaxError.NESTING_DEPTH, restTemplate);
     }
 
     switch (mode) {
@@ -76,24 +75,23 @@ export const parse = (template, options) => {
           break;
         }
 
-        if (!isTop) {
-          if (isIf) {
-            const [elseConditionToken] = getToken(TOKENS.ELSE_START);
-            if (elseConditionToken) {
-              terminateBranch();
-              splitBranch(MODES.ELSE);
-              break;
-            }
-          }
-
-          const [endExpressionToken] = getToken(TOKENS.EXPRESSION_END);
-          if (endExpressionToken) {
+        if (isIf) {
+          const [elseConditionToken] = getToken(TOKENS.ELSE_START);
+          if (elseConditionToken) {
             terminateBranch();
-            terminateBranch();
+            splitBranch(MODES.ELSE);
+            break;
           }
         }
 
-        break;
+        const [endExpressionToken] = getToken(TOKENS.EXPRESSION_END);
+        if (endExpressionToken) {
+          terminateBranch();
+          terminateBranch();
+          break;
+        }
+
+        break; // unreachable break
       }
 
       case MODES.EXPRESSION: {
@@ -113,7 +111,7 @@ export const parse = (template, options) => {
             break;
           }
 
-          throw new Error();
+          throw new RSyntaxError(RSyntaxError.EXPECTED_END, restTemplate);
         }
 
         const [startFunctionToken, functionName] = getToken(TOKENS.FUNCTION_START);
@@ -121,7 +119,7 @@ export const parse = (template, options) => {
           const fn = fns[functionName];
 
           if (!fn) {
-            throw new Error();
+            throw new RSyntaxError(RSyntaxError.INVALID_FUNCTION, restTemplate, functionName);
           }
 
           branch.push(fn);
@@ -129,7 +127,7 @@ export const parse = (template, options) => {
           break;
         }
 
-        throw new Error();
+        throw new RSyntaxError(RSyntaxError.INVALID_EXPRESSION, restTemplate);
       }
 
       case MODES.FUNCTION: {
@@ -155,7 +153,7 @@ export const parse = (template, options) => {
             break;
           }
 
-          throw new Error();
+          throw new RSyntaxError(RSyntaxError.EXPECTED_END, restTemplate);
         }
 
         const [startFunctionToken, functionName] = getToken(TOKENS.FUNCTION_START);
@@ -163,7 +161,7 @@ export const parse = (template, options) => {
           const fn = fns[functionName];
 
           if (!fn) {
-            throw new Error();
+            throw new RSyntaxError(RSyntaxError.INVALID_FUNCTION, restTemplate, functionName);
           }
 
           splitBranch(MODES.FUNCTION);
@@ -176,11 +174,7 @@ export const parse = (template, options) => {
           branch.push([getterFn, ...variableName.split('.')]);
         } else {
           const [stringToken] = getToken(TOKENS.STRING_FUNCTION);
-          if (stringToken) {
-            branch.push(stripEscapes(stringToken));
-          } else {
-            throw new Error();
-          }
+          branch.push(stripEscapes(stringToken));
         }
 
         void getToken(TOKENS.FUNCTION_SEPARATOR);
@@ -189,7 +183,8 @@ export const parse = (template, options) => {
   }
 
   if (mode !== MODES.TOP) {
-    throw new Error();
+    const type = mode === MODES.FUNCTION ? RSyntaxError.UNTERMINATED_FUNCTION : RSyntaxError.UNTERMINATED_EXPRESSION;
+    throw new RSyntaxError(type, restTemplate);
   }
 
   return tree;

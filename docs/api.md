@@ -3,6 +3,7 @@
 * [Constructor (`runty`)](#constructor)
 * [Parser (`runt`)](#parser)
 * [Template Function](#template-function)
+* [RSyntaxError](#rsyntaxerror)
 * [Runty Function](#runty-function)
 
 ------
@@ -68,6 +69,8 @@ const template = runt(templateString, asArray);
 *   [`Template Function`](#template-function)
     * A compiled template function.
 
+If a template is invalid or contains syntax errors, this function will throw a [`RSyntaxError`](#rsyntaxerror)
+
 ------
 
 ## Template Function
@@ -92,6 +95,41 @@ const result = template(variables, asArray);
 *   `string | (string | any)[]`
     * Unless an `asArray` option was used, the resulting `string`.
     * If the `asArray` option was used, an array of `string` and `any` (tokens).
+
+------
+
+## RSyntaxError
+
+`RSyntaxError` is the Error class thrown when the template parser encounters invalid syntax.
+
+### Static Properties
+
+The following static properties are available on the `RSyntaxError` class, which describe types of syntax errors.
+
+* `RSyntaxError.EXPECTED_END`
+* `RSyntaxError.INVALID_EXPRESSION`
+* `RSyntaxError.INVALID_FUNCTION`
+* `RSyntaxError.NESTING_DEPTH`
+* `RSyntaxError.UNTERMINATED_EXPRESSION`
+* `RSyntaxError.UNTERMINATED_FUNCTION`
+
+### Instance Properties
+
+*   `message: string`
+
+    Long-form syntax error message
+
+*   `type: RSyntaxError.(EXPECTED_END|INVALID_EXPRESSION|INVALID_FUNCTION|NESTING_DEPTH|UNTERMINATED_EXPRESSION|UNTERMINATED_FUNCTION)`
+
+    The type of syntax error that was encountered.
+
+*   `rest: string`
+
+    The remaining unparsed template string.
+
+*   `value: string`
+
+    Some errors contain another value to provide additional context, such as the function name of an `INVALID_FUNCTION` error
 
 -------
 
