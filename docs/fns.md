@@ -37,7 +37,7 @@
         * [trim](#trim)
         * [up](#up)
     * [utilFns](#utilfns)
-        * [$ (variable getter)](#variable-getter)
+        * [$ (variable getter)](#-variable-getter)
         * [get](#get)
         * [join](#join)
         * [idx](#idx-1)
