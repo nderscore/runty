@@ -26,7 +26,7 @@
     "url": "https://github.com/nderscore/runty"
   },
   "engines": {
-    "node": ">= 8"
+    "node": ">= 12"
   },
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
