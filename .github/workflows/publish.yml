@@ -3,7 +3,20 @@ on:
   release:
     types: [created]
 jobs:
-  publish:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+    - run: yarn
+    - run: yarn lint
+    - run: yarn build
+    - run: yarn test
+      env:
+        CI: true
+  publish-npm:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -12,18 +25,20 @@ jobs:
         node-version: '12.x'
         registry-url: 'https://registry.npmjs.org'
     - run: yarn
-    - run: yarn lint
     - run: yarn build
-    - run: yarn test
-      env:
-        CI: true
     - run: yarn publish
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+  publish-github:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
       with:
         node-version: '12.x'
         registry-url: 'https://npm.pkg.github.com'
-    - run: yarn publish
+    - run: yarn
+    - run: yarn build
+    - run: npm publish
       env:
         NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
