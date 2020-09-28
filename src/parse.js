@@ -1,7 +1,5 @@
 import { CONDITION, MODES, RSyntaxError, TOKENS, getterFn, stripEscapes } from './constants';
 
-// FIXME: Populate errors with useful syntax error messages
-
 export const parse = (template, options) => {
   const { fns, maxDepth } = options;
 
