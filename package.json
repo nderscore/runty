@@ -15,10 +15,9 @@
     "build": "yarn build:esm && yarn build:cjs",
     "build:cjs": "babel --delete-dir-on-start --out-dir dist/cjs --env-name cjs ./src",
     "build:esm": "babel --delete-dir-on-start --out-dir dist/esm ./src",
-    "lint": "eslint --fix .",
-    "test": "jest",
-    "preversion": "yarn test",
-    "prepublishOnly": "yarn build"
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "test": "jest"
   },
   "homepage": "https://github.com/nderscore/runty#readme",
   "repository": {
