@@ -25,7 +25,7 @@ export const CONDITION = { RUNTY_CONDITION: null };
 
 export class RSyntaxError extends Error {
   constructor(type, rest, value) {
-    const message = `Runty Syntax Error: ${type} ${rest ? `near "${rest.slice(0, 10)}" ` : ''}${value ?? ''}`;
+    const message = `${type}${value !== undefined ? ` (${value})` : ''}${rest ? ` near "${rest.slice(0, 10)}"` : ''}`;
 
     super(message);
 
