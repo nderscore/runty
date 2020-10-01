@@ -59,14 +59,6 @@ export const parse = (template, options) => {
         const isTop = mode === MODES.TOP;
         const isIf = mode === MODES.IF;
 
-        const stringPattern = isTop ? TOKENS.STRING_OUTER : isIf ? TOKENS.STRING_IF : TOKENS.STRING_ELSE;
-        const [stringToken] = getToken(stringPattern);
-
-        if (stringToken) {
-          branch.push(stripEscapes(stringToken));
-          break;
-        }
-
         const [startExpressionToken] = getToken(TOKENS.EXPRESSION_START);
         if (startExpressionToken) {
           splitBranch(MODES.EXPRESSION);
@@ -82,14 +74,21 @@ export const parse = (template, options) => {
           }
         }
 
-        const [endExpressionToken] = getToken(TOKENS.EXPRESSION_END);
-        if (endExpressionToken) {
-          terminateBranch();
-          terminateBranch();
-          break;
+        if (!isTop) {
+          const [endExpressionToken] = getToken(TOKENS.EXPRESSION_END);
+
+          if (endExpressionToken) {
+            terminateBranch();
+            terminateBranch();
+            break;
+          }
         }
 
-        break; // unreachable break
+        const stringPattern = isTop ? TOKENS.STRING_OUTER : isIf ? TOKENS.STRING_IF : TOKENS.STRING_ELSE;
+        const [stringToken] = getToken(stringPattern);
+
+        branch.push(stripEscapes(stringToken));
+        break;
       }
 
       case MODES.EXPRESSION: {
