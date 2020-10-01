@@ -40,7 +40,7 @@ describe('Syntax errors', () => {
   it('should throw INVALID_FUNCTION', () => {
     const runt = runty({ fns: { foo: () => 0 } });
 
-    expect.assertions(2);
+    expect.assertions(3);
 
     try {
       runt('This is invalid {$doesntExist()}');
@@ -52,6 +52,7 @@ describe('Syntax errors', () => {
       runt('This is invalid {$foo($doesntExist())}');
     } catch (e) {
       expect(e.type).toBe(RSyntaxError.INVALID_FUNCTION);
+      expect(e.value).toBe('doesntExist');
     }
   });
 
