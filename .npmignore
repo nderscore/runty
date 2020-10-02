@@ -3,3 +3,4 @@ coverage/
 src/
 tests/
 jest.config.js
+website/

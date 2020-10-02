@@ -1,4 +1,6 @@
-# Extending With Custom Functions
+---
+title: Extending With Custom Functions
+---
 
 TODO: Write a guide.
 

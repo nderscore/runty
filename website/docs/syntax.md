@@ -1,4 +1,6 @@
-# Runty Template Syntax
+---
+title: Template Syntax
+---
 
 ## Syntax
 
@@ -34,8 +36,8 @@
 *   Value expressions and the condition of a conditional expression contain either a **Variable Reference** or a **Function Call**.
 
     *   **Variable References** are indicated by a `%` followed by a property name or a chain of `.`-separated
-    property names. They retrieve values from the dictionary of variables passed to the template at the time of
-    execution.
+        property names. They retrieve values from the dictionary of variables passed to the template at the time of
+        execution.
 
         ```
         %variableName
@@ -43,7 +45,7 @@
         %some.deeper.value
         ```
 
-        If a value is not found, a variable reference will resolve to an empty string `''`.
+       If a value is not found, a variable reference will resolve to an empty string `''`.
 
     *   **Function Calls** are indicated by a `$` followed by a function name and suffixed with a list of `,`-separated arguments wrapped in `()`'s.
 

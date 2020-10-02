@@ -1,28 +1,7 @@
-# runty
-
-Extensible conditional string micro templates.
-
-------
-
-## Features
-
-* Simple, but powerful template syntax
-* Conditional string rendering with support for nested expressions
-* Variable (interpolation / subsitution / expansion) with support for property accessor chaining 
-* Parse/compile your templates once, execute them multiple times with different values
-* Support for array output, allowing substitution of non-string values (such as React components) 
-* Extensible with custom functions (or use our [Standard Library (fns)](https://nderscore.github.io/runty/docs/fns))
-* Bundle-bloat friendly. Small, tree-shakeable library with zero dependencies
-
-This library is still under active development and should be considered beta/experimental.
-
-------
-
-## Documentation
-
-Documentation is available at https://nderscore.github.io/runty
-
-------
+---
+title: Get Started
+slug: /
+---
 
 ## Installation
 
@@ -70,7 +49,7 @@ console.log(anotherTemplate(['Albuquerque']));
 
 ### Using Functions
 
-This example uses [standard library `fns`](docs/fns.md).
+This example uses [standard library `fns`](fns.md).
 
 ```javascript
 import { runty, fns } from 'runty';

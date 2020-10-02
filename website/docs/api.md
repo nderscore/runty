@@ -1,12 +1,6 @@
-# Runty API Reference
-
-* [Constructor (`runty`)](#constructor)
-* [Parser (`runt`)](#parser)
-* [Template Function](#template-function)
-* [RSyntaxError](#rsyntaxerror)
-* [Runty Function](#runty-function)
-
-------
+---
+title: API Reference
+---
 
 ## Constructor
 
@@ -49,7 +43,7 @@ const runt = runty({
 
 ## Parser
 
-Parses a runty template and returns a compiled [template function]().
+Parses a runty template and returns a compiled [template function](#template-function).
 
 ```javascript
 const template = runt(templateString, asArray);

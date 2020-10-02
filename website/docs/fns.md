@@ -1,54 +1,10 @@
-# Runty Standard Library (fns)
+---
+title: Standard Library (fns)
+---
 
-* [Intro](#intro)
-* [Classes](#classes)
-    * [logicFns](#logicfns)
-        * [and](#and)
-        * [eq](#eq)
-        * [gt](#gt)
-        * [gte](#gte)
-        * [is](#is)
-        * [lt](#lt)
-        * [lte](#lte)
-        * [not](#not)
-        * [or](#or)
-    * [numberFns](#numberfns)
-        * [add](#add)
-        * [ceil](#ceil)
-        * [div](#div)
-        * [flr](#flr)
-        * [fix](#fix)
-        * [max](#max)
-        * [min](#min)
-        * [mul](#mul)
-        * [rnd](#rnd)
-        * [sub](#sub)
-    * [stringFns](#stringfns)
-        * [cat](#cat)
-        * [idx](#idx)
-        * [len](#len)
-        * [low](#low)
-        * [pl](#pl)
-        * [pr](#pr)
-        * [rpt](#rpt)
-        * [rpl](#rpl)
-        * [sbs](#sbs)
-        * [slc](#slc)
-        * [trim](#trim)
-        * [up](#up)
-    * [utilFns](#utilfns)
-        * [$ (variable getter)](#-variable-getter)
-        * [get](#get)
-        * [join](#join)
-        * [idx](#idx-1)
-        * [len](#len-1)
-        * [slc](#slc-1)
+## Introduction
 
-------
-
-# Intro
-
-The standard library `fns` is a set of small, template-friendly utility functions covering a broad range of string template needs.
+The standard library, `fns`, is a set of small, template-friendly utility functions covering a broad range of string template needs.
 
 ```javascript
 // import the entire standard library
@@ -58,7 +14,7 @@ import { runty, fns } from 'runty';
 const runt = runty({ fns });
 ```
 
-Because the standard library covers a broad range of use cases, you might not want to import the entire library. Because of this, the standard library is also made available as classes of functions, and as independent functions which can be imported individually.
+Because the standard library covers a broad range of use cases, you will rarely want to import the entire collection. The standard library is also made available as classes of functions, and as independent functions which can be imported individually.
 
 ```javascript
 // import a class of functions
