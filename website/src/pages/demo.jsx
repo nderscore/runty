@@ -75,7 +75,6 @@ const Demo = () => {
       <p>
         Try out runty for yourself!
         All of the <Link to={useBaseUrl('docs/fns')}>standard library fns</Link> are available on this live demo page.
-        Not sure where to start? 
       </p>
       <div>
         <h3>Template</h3>
