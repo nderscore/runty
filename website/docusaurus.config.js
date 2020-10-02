@@ -2,8 +2,8 @@
 module.exports = {
   title: 'runty',
   tagline: 'Extensible conditional string micro templates',
-  url: 'https://nderscore.github.io',
-  baseUrl: '/runty/',
+  url: 'https://runty.js.org',
+  baseUrl: '/',
   onBrokenLinks: 'throw',
   favicon: 'img/favicon.ico',
   organizationName: 'nderscore',
