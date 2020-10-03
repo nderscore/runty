@@ -10,7 +10,7 @@ import { usePersistState } from '../hooks/use-persist-state';
 const defaultTemplate = '{%track?{$pl(%track,2,0)}. }{%artist?{%artist} - }{%title}{%album? ({%album})} [{$pl(%minutes,2,0)}:{$pl(%seconds,2,0)}]';
 
 const defaultValues = `{
-  // "album": "Running With Scissors",
+  // "album": "Running With Scissors", // uncomment this and see how the result changes
   "artist": "'Weird Al' Yankovic",
   "minutes": 11,
   "title": "Albuquerque",
@@ -48,8 +48,8 @@ const Demo = () => {
   const [valueString, _setValues] = usePersistState('v', defaultValues);
   const initialTemplate = useRef(templateString).current;
   const initialValues = useRef(valueString).current
-  const setTemplate = useMemo(() => debounce(_setTemplate), [_setTemplate]);
-  const setValues = useMemo(() => debounce(_setValues), [_setValues]);
+  const setTemplate = useMemo(() => debounce(_setTemplate, 300), [_setTemplate]);
+  const setValues = useMemo(() => debounce(_setValues, 300), [_setValues]);
 
   const [template, templateError] = useMemo(() => {
     try {
@@ -61,7 +61,7 @@ const Demo = () => {
 
   const [values, valueError] = useMemo(() => {
     try {
-      return [JSON.parse(valueString.replace(/^\s*\/\/.*$/gm, ''))]
+      return [JSON.parse(valueString.replace(/\/\/.*$/gm, ''))]
     } catch (e) {
       return [{}, e];
     }
