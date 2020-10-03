@@ -1,39 +1,29 @@
 import { useEffect, useState } from 'react';
 
+import debounce from 'lodash/debounce';
+
 const getParams = () => typeof window !== 'undefined' ? new window.URLSearchParams(window.location.search.slice(1)) : new Map();
 
-const updateParams = (params) => {
+const update = debounce((key, value, defaultValue) => {
+  const params = getParams();
+
+  if (value !== defaultValue) {
+    params.set(key, value);
+  } else {
+    params.delete(key);
+  }
+
   const search = params.toString();
+
   history.replaceState(null, document.title, search ? `?${search}` : location.pathname);
-};
-
-const get = (key) => {
-  const params = getParams();
-  return params.get(key);
-};
-
-const set = (key, value) => {
-  const params = getParams();
-  params.set(key, value);
-  updateParams(params);
-};
-
-const remove = (key) => {
-  const params = getParams();
-  params.delete(key);
-  updateParams(params);
-};
+}, 500);
 
 export const usePersistState = (key, defaultValue = '') => {
-  const [value, setValue] = useState(() => get(key) || defaultValue);
+  const [value, setValue] = useState(() => getParams().get(key) || defaultValue);
 
   useEffect(() => {
-    if (value !== defaultValue) {
-      set(key, value);
-    } else {
-      remove(key, value);
-    }
-  }, [value]);
+    update(key, value, defaultValue);
+  }, [defaultValue, value]);
 
   return [value, setValue];
 };

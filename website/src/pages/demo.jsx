@@ -3,7 +3,8 @@ import { fns, runty } from 'runty';
 
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
-import debounce from 'lodash/debounce';
+import clsx from 'clsx';
+import styles from './demo.module.css';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import { usePersistState } from '../hooks/use-persist-state';
 
@@ -17,10 +18,6 @@ const defaultValues = `{
   "seconds": 5,
   "track": 11
 }`;
-
-const containerStyles = {
-  paddingTop: 'var(--ifm-spacing-vertical)',
-};
 
 const errorStyles = {
   color: 'var(--ifm-color-danger)',
@@ -44,12 +41,10 @@ const runt = runty({ fns });
 const Demo = () => {
   const templateRef = useRef();
   const valuesRef = useRef();
-  const [templateString, _setTemplate] = usePersistState('t', defaultTemplate);
-  const [valueString, _setValues] = usePersistState('v', defaultValues);
+  const [templateString, setTemplate] = usePersistState('t', defaultTemplate);
+  const [valueString, setValues] = usePersistState('v', defaultValues);
   const initialTemplate = useRef(templateString).current;
   const initialValues = useRef(valueString).current
-  const setTemplate = useMemo(() => debounce(_setTemplate, 300), [_setTemplate]);
-  const setValues = useMemo(() => debounce(_setValues, 300), [_setValues]);
 
   const [template, templateError] = useMemo(() => {
     try {
@@ -68,7 +63,7 @@ const Demo = () => {
   });
 
   const result = useMemo(() => {
-    return template && values && template(values) || '';
+    return template && template(values) || '';
   }, [template, values]);
 
   useEffect(() => {
@@ -77,7 +72,7 @@ const Demo = () => {
   }, [initialTemplate, initialValues]);
 
   return (
-    <div className="container" style={containerStyles}>
+    <main className={clsx('container', styles.main)}>
       <h1>Demo</h1>
       <p>
         Try out runty live in your browser. All of the <Link to={useBaseUrl('docs/fns')}>standard library fns</Link> are available on this demo page.
@@ -88,28 +83,28 @@ const Demo = () => {
       <div>
         <h3>Template</h3>
         <textarea
+          className={styles.input}
           onInput={({ target }) => setTemplate(target.value)}
           ref={templateRef}
           rows="1"
-          style={inputStyles}
         />
-        {templateError && <p style={errorStyles}>{templateError.message}</p>}
+        {templateError && <p className={styles.error}>{templateError.message}</p>}
       </div>
       <div>
         <h3>Variable Dictionary</h3>
         <textarea
+          className={styles.input}
           onInput={({ target }) => setValues(target.value)}
           ref={valuesRef}
           rows="10"
-          style={inputStyles}
         />
-        {valueError && <p style={errorStyles}>{valueError.message}</p>}
+        {valueError && <p className={styles.error}>{valueError.message}</p>}
       </div>
       <h3>Result</h3>
       <pre>
         {result}
       </pre>
-    </div>
+    </main>
   );
 };
 

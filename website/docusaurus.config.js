@@ -23,7 +23,7 @@ module.exports = {
           position: 'left',
         },
         {
-          to: 'demo',
+          to: 'demo/',
           label: 'Demo',
           position: 'left',
         },
@@ -59,7 +59,7 @@ module.exports = {
             },
             {
               label: 'IRC (#runty on freenode)',
-              href: 'https://mibbit.com/?server=chat.freenode.net:6697&channel=%23runty',
+              href: 'https://webchat.freenode.net/#runty',
             },
           ],
         },

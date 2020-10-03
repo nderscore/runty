@@ -3,7 +3,7 @@ import Link from '@docusaurus/Link';
 import React from 'react';
 import clsx from 'clsx';
 import { runty } from 'runty';
-import styles from './styles.module.css';
+import styles from './index.module.css';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
@@ -68,12 +68,13 @@ function Home() {
     <Layout description="Extensible conditional string templates.">
       <header className={clsx('hero hero--primary', styles.heroBanner)}>
         <div className="container">
+          <img src={useBaseUrl('img/logo.svg')} height="96" />
           <h1 className="hero__title">{siteConfig.title}</h1>
           <p className="hero__subtitle">{siteConfig.tagline}</p>
           <div className={styles.buttons}>
             <Link
               className={clsx(
-                'button button--outline button--secondary button--lg',
+                'button button--info button--lg',
                 styles.getStarted,
               )}
               to={useBaseUrl('docs/')}

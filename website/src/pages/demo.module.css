@@ -1,0 +1,20 @@
+.main {
+  padding: 2rem;
+}
+
+.error {
+  color: var(--ifm-color-danger);
+}
+
+.input {
+  background-color: var(--ifm-pre-background);
+  border: 0;
+  border-radius: var(--ifm-pre-border-radius);
+  color: var(--ifm-pre-color);
+  font-family: var(--ifm-font-family-monospace);
+  font-size: var(--ifm-code-font-size);
+  line-height: var(--ifm-pre-line-height);
+  margin-bottom: var(--ifm-spacing-vertical);
+  padding: var(--ifm-pre-padding);
+  width: 100%;
+}
