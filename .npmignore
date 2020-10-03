@@ -1,6 +1,7 @@
 .github/
 coverage/
 src/
+website/
 tests/
 jest.config.js
-website/
+jsconfig.json
