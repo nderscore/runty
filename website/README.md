@@ -4,13 +4,25 @@ The documentation website is built using [Docusaurus 2](https://v2.docusaurus.io
 
 ### Installation
 
-```
+The documentation website references the parent directory as a dependency, so that it can use the library.
+
+```shell
+# build the runty library
+
+$ yarn
+$ yarn build
+
+# go to website project directory and install dependencies
+
+$ cd website
 $ yarn
 ```
 
 ### Local Development
 
-```
+```shell
+# while in the website/ directory
+
 $ yarn start
 ```
 

@@ -19,7 +19,7 @@
     "lint:fix": "eslint --fix .",
     "test": "jest"
   },
-  "homepage": "https://github.com/nderscore/runty#readme",
+  "homepage": "https://runty.js.org",
   "repository": {
     "type": "git",
     "url": "https://github.com/nderscore/runty"

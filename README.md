@@ -11,16 +11,14 @@ Extensible conditional string micro templates.
 * Variable (interpolation / subsitution / expansion) with support for property accessor chaining 
 * Parse/compile your templates once, execute them multiple times with different values
 * Support for array output, allowing substitution of non-string values (such as React components) 
-* Extensible with custom functions (or use our [Standard Library (fns)](https://nderscore.github.io/runty/docs/fns))
+* Extensible with custom functions (or use our [Standard Library (fns)](https://runty.js.org/docs/fns))
 * Bundle-bloat friendly. Small, tree-shakeable library with zero dependencies
-
-This library is still under active development and should be considered beta/experimental.
 
 ------
 
 ## Documentation
 
-Documentation is available at https://nderscore.github.io/runty
+Documentation and a demo are available at https://runty.js.org
 
 ------
 

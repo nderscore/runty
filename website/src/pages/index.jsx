@@ -46,7 +46,7 @@ const features = [
   {
     title: 'Bundle-bloat friendly',
     description: `
-      Small, tree-shakeable JavaScript library with zero dependencies.
+      Small, tree-shakeable library with zero dependencies.
     `,
   },
 ];

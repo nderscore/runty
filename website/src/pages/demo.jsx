@@ -1,24 +1,29 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { fns, runty } from 'runty';
 
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import debounce from 'lodash/debounce';
 import useBaseUrl from '@docusaurus/useBaseUrl';
+import { usePersistState } from '../hooks/use-persist-state';
 
-const initialTemplate = '{%track?{$pl(%track,2,0)}. }{%artist?{%artist} - }{%title}{%album? ({%album})} [{$pl(%minutes,2,0)}:{$pl(%seconds,2,0)}]';
+const defaultTemplate = '{%track?{$pl(%track,2,0)}. }{%artist?{%artist} - }{%title}{%album? ({%album})} [{$pl(%minutes,2,0)}:{$pl(%seconds,2,0)}]';
 
-const initialValues = `{
-  "album": "Running With Scissors",
+const defaultValues = `{
+  // "album": "Running With Scissors",
   "artist": "'Weird Al' Yankovic",
-  "track": 11,
-  "title": "Albuquerque",
   "minutes": 11,
-  "seconds": 5
+  "title": "Albuquerque",
+  "seconds": 5,
+  "track": 11
 }`;
 
 const containerStyles = {
   paddingTop: 'var(--ifm-spacing-vertical)',
+};
+
+const errorStyles = {
+  color: 'var(--ifm-color-danger)',
 };
 
 const inputStyles = {
@@ -31,7 +36,7 @@ const inputStyles = {
   lineHeight: 'var(--ifm-pre-line-height)',
   marginBottom: 'var(--ifm-spacing-vertical)',
   padding: 'var(--ifm-pre-padding)',
-  width: '100%'
+  width: '100%',
 };
 
 const runt = runty({ fns });
@@ -39,8 +44,10 @@ const runt = runty({ fns });
 const Demo = () => {
   const templateRef = useRef();
   const valuesRef = useRef();
-  const [templateString, _setTemplate] = useState(initialTemplate);
-  const [valueString, _setValues] = useState(initialValues);
+  const [templateString, _setTemplate] = usePersistState('t', defaultTemplate);
+  const [valueString, _setValues] = usePersistState('v', defaultValues);
+  const initialTemplate = useRef(templateString).current;
+  const initialValues = useRef(valueString).current
   const setTemplate = useMemo(() => debounce(_setTemplate), [_setTemplate]);
   const setValues = useMemo(() => debounce(_setValues), [_setValues]);
 
@@ -54,9 +61,9 @@ const Demo = () => {
 
   const [values, valueError] = useMemo(() => {
     try {
-      return [JSON.parse(valueString)]
+      return [JSON.parse(valueString.replace(/^\s*\/\/.*$/gm, ''))]
     } catch (e) {
-      return [, e];
+      return [{}, e];
     }
   });
 
@@ -67,24 +74,36 @@ const Demo = () => {
   useEffect(() => {
     templateRef.current.value = initialTemplate;
     valuesRef.current.value = initialValues;
-  }, []);
+  }, [initialTemplate, initialValues]);
 
   return (
     <div className="container" style={containerStyles}>
       <h1>Demo</h1>
       <p>
-        Try out runty for yourself!
-        All of the <Link to={useBaseUrl('docs/fns')}>standard library fns</Link> are available on this live demo page.
+        Try out runty live in your browser. All of the <Link to={useBaseUrl('docs/fns')}>standard library fns</Link> are available on this demo page.
+      </p>
+      <p>
+        The variable dictionary input supports JSON syntax and <code>//</code> for line comments.
       </p>
       <div>
         <h3>Template</h3>
-        <textarea onInput={({ target }) => setTemplate(target.value)} ref={templateRef} rows="1" style={inputStyles} />
-        {templateError && <div>{`Syntax Error: ${templateError.message}`}</div>}
+        <textarea
+          onInput={({ target }) => setTemplate(target.value)}
+          ref={templateRef}
+          rows="1"
+          style={inputStyles}
+        />
+        {templateError && <p style={errorStyles}>{templateError.message}</p>}
       </div>
       <div>
-        <h3>Variables</h3>
-        <textarea onInput={({ target }) => setValues(target.value)} ref={valuesRef} rows="10" style={inputStyles} />
-        {valueError && <div>{valueError.message}</div>}
+        <h3>Variable Dictionary</h3>
+        <textarea
+          onInput={({ target }) => setValues(target.value)}
+          ref={valuesRef}
+          rows="10"
+          style={inputStyles}
+        />
+        {valueError && <p style={errorStyles}>{valueError.message}</p>}
       </div>
       <h3>Result</h3>
       <pre>
