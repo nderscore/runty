@@ -5,6 +5,7 @@ module.exports = {
     sourceType: 'module',
   },
   extends: ['eslint:recommended', 'prettier'],
+  ignorePatterns: ['/website/**/*'],
   plugins: ['jest', 'prettier'],
   env: {
     'jest/globals': true,
