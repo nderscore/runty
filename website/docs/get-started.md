@@ -13,6 +13,12 @@ or
 $ yarn add runty
 ```
 
+Or import the library directly in your browser or deno:
+
+```javascript
+import { runty } from 'https://cdn.skypack.dev/runty';
+```
+
 ------
 
 ## Quick Examples
