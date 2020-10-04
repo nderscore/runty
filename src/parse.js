@@ -128,8 +128,18 @@ export const parse = (template, options) => {
       }
 
       case MODES.FUNCTION: {
+        const [separator] = getToken(TOKENS.FUNCTION_SEPARATOR);
+
+        if (separator && branch.length === 1) {
+          branch.push('');
+        }
+
         const [endFunctionToken] = getToken(TOKENS.FUNCTION_END);
         if (endFunctionToken) {
+          if (separator) {
+            branch.push('');
+          }
+
           const [parentMode] = getParentBranch();
           const isNestedArgument = parentMode === MODES.FUNCTION;
           if (isNestedArgument) {
@@ -170,11 +180,9 @@ export const parse = (template, options) => {
         if (variableToken) {
           branch.push([getterFn, ...variableName.split('.')]);
         } else {
-          const [stringToken] = getToken(TOKENS.STRING_FUNCTION);
+          const [stringToken = ''] = getToken(TOKENS.STRING_FUNCTION);
           branch.push(stripEscapes(stringToken));
         }
-
-        void getToken(TOKENS.FUNCTION_SEPARATOR);
       }
     }
   }
