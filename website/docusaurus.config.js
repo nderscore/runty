@@ -75,6 +75,10 @@ module.exports = {
       ],
       copyright: `Copyright © ${new Date().getFullYear()} _nderscore. Built with Docusaurus.`,
     },
+    googleAnalytics: {
+      trackingID: 'UA-179582829-1',
+      anonymizeIP: true,
+    },
   },
   presets: [
     [
