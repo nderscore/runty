@@ -8631,7 +8631,7 @@ run-queue@^1.0.0, run-queue@^1.0.3:
     aproba "^1.1.1"
 
 "runty@file:..":
-  version "0.1.4"
+  version "0.1.5"
 
 rx@^4.1.0:
   version "4.1.0"
