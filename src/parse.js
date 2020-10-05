@@ -144,7 +144,6 @@ export const parse = (template, options) => {
           const isNestedArgument = parentMode === MODES.FUNCTION;
           if (isNestedArgument) {
             terminateBranch();
-            void getToken(TOKENS.FUNCTION_SEPARATOR);
             break;
           }
 
