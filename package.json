@@ -1,7 +1,7 @@
 {
   "name": "runty",
   "author": "_nderscore",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Extensible conditional string micro templates",
   "keywords": [
     "string",
