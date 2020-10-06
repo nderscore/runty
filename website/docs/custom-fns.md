@@ -30,7 +30,7 @@ const runt = runty({
   }
 });
 
-const result = runt('{%count} thing{%plural(%count)?s}')({ count: 1 });
+const result = runt('{%count} thing{$plural(%count)?s}')({ count: 1 });
 ```
 
 ## Type-casting Arguments
@@ -74,7 +74,7 @@ const plural = ([num], variables) => {
 };
 
 const runt = runty({ fns: { plural } });
-const template =  runt('{%count} thing{%plural(1)?s}');
+const template = runt('{$plural(1)?are:is}');
 
 try {
   const result = template();
