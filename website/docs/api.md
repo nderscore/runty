@@ -147,4 +147,5 @@ someFn(args, variables);
 ### Returns
 
 *   `any`
-    * Should return some scalar or object value.
+    * The resulting value.
+    * This may be used as a condition, as an argument to another function, or inserted into a template as a value.

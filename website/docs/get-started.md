@@ -83,7 +83,7 @@ import { runty } from 'runty';
 
 const runt = runty({
   fns: {
-    plural: ([number]) => number !== 1,
+    plural: ([num]) => Number(num) !== 1,
     fooOrBar: ([defaultValue], { bar, foo }) => bar ?? foo ?? defaultValue
   }
 });
