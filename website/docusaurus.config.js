@@ -79,6 +79,11 @@ module.exports = {
       trackingID: 'UA-179582829-1',
       anonymizeIP: true,
     },
+    algolia: {
+      apiKey: '34f3cc411eb2a349c0d88159c7bf7caf',
+      indexName: 'runty_js',
+      searchParameters: {},
+    },
   },
   presets: [
     [
