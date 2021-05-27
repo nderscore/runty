@@ -7,5 +7,5 @@
   <Image width="16" height="16" type="image/x-icon">https://runty.js.org/img/favicon.ico</Image>
   <Url type="text/html" method="get" template="https://runty.js.org/search?q={searchTerms}"/>
   <Url type="application/opensearchdescription+xml" rel="self" template="https://runty.js.org/opensearch.xml" />
-  <moz:SearchForm>https://runty.js.org</moz:SearchForm>
+  <moz:SearchForm>https://runty.js.org/</moz:SearchForm>
 </OpenSearchDescription>
