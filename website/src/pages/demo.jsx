@@ -52,7 +52,7 @@ const Demo = () => {
     } catch (e) {
       return [, e];
     }
-  });
+  }, [templateString]);
 
   const [values, valueError] = useMemo(() => {
     try {
@@ -60,7 +60,7 @@ const Demo = () => {
     } catch (e) {
       return [{}, e];
     }
-  });
+  }, [valueString]);
 
   const result = useMemo(() => {
     return template && template(values) || '';
