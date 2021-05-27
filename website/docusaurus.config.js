@@ -57,10 +57,6 @@ module.exports = {
               label: 'Stack Overflow',
               href: 'https://stackoverflow.com/questions/tagged/runty',
             },
-            {
-              label: 'IRC (#runty on freenode)',
-              href: 'https://webchat.freenode.net/#runty',
-            },
           ],
         },
         {
