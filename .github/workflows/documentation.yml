@@ -54,4 +54,4 @@ jobs:
           yarn build
           cd website
           yarn --frozen-lockfile
-          npx docusaurus deploy
+          yarn deploy
