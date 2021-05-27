@@ -20,23 +20,16 @@
     "react-dom": "^16.8.4",
     "runty": "file:.."
   },
-  "browserslist": {
-    "production": [
-      "last 2 ChromeAndroid versions",
-      "last 2 Chrome versions",
-      "last 2 iOS versions",
-      "last 2 Safari versions",
-      "last 2 Samsung versions",
-      "last 2 FirefoxAndroid versions",
-      "last 2 Firefox versions",
-      "last 2 OperaMobile versions",
-      "last 2 Opera versions",
-      "last 2 Edge versions"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+  "browserslist": [
+    "last 2 ChromeAndroid versions",
+    "last 2 Chrome versions",
+    "last 2 iOS versions",
+    "last 2 Safari versions",
+    "last 2 Samsung versions",
+    "last 2 FirefoxAndroid versions",
+    "last 2 Firefox versions",
+    "last 2 OperaMobile versions",
+    "last 2 Opera versions",
+    "last 2 Edge versions"
+  ]
 }
