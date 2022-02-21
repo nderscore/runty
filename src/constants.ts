@@ -1,3 +1,5 @@
+import type { RuntyFunction } from './types';
+
 export const TOKENS = {
   ELSE_START: /^:/,
   EXPRESSION_END: /^\}/,
@@ -50,6 +52,9 @@ export class RSyntaxError extends Error {
 
 export const stripEscapes = (str: string) => str.replace(/\\(.)/g, '$1');
 
-export const getterFn = (propertyNames, variables) => {
-  return propertyNames.reduce((acc, next) => acc[next] ?? '', variables);
+export const getterFn: RuntyFunction = (propertyNames, variables) => {
+  if (propertyNames.length === 0) {
+    return '';
+  }
+  return propertyNames.reduce((acc, next) => acc[String(next)] ?? '', variables);
 };

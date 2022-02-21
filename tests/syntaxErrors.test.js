@@ -1,4 +1,4 @@
-import { RSyntaxError, RSyntaxErrorType, runty } from 'runty';
+import { RSyntaxErrorType, runty } from 'runty';
 
 describe('Syntax errors', () => {
   it('should throw EXPECTED_END', () => {
