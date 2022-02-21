@@ -1,4 +1,4 @@
-import type { RuntyFunction } from './types';
+import type { ReturnValues, VariableDictionary } from './types';
 
 export const TOKENS = {
   ELSE_START: /^:/,
@@ -52,9 +52,12 @@ export class RSyntaxError extends Error {
 
 export const stripEscapes = (str: string) => str.replace(/\\(.)/g, '$1');
 
-export const getterFn: RuntyFunction = (propertyNames, variables) => {
+export const getterFn = <V extends VariableDictionary, R extends ReturnValues<V>>(
+  propertyNames: R[],
+  variables: V
+): R => {
   if (propertyNames.length === 0) {
-    return '';
+    return '' as R;
   }
-  return propertyNames.reduce((acc, next) => acc[String(next)] ?? '', variables);
+  return propertyNames.reduce((acc, next) => acc?.[String(next)] ?? '', variables) as R;
 };
