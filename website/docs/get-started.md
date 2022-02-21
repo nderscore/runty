@@ -118,9 +118,9 @@ may be useful to insert a React component into a string template.
 import React from 'react';
 import { runty } from 'runty';
 
-// trigger an array result while initializing runty:
-const runt = runty({ asArray: true });
+const runt = runty();
 
+// trigger an array result when defining a template:
 const template = runt('Drop a react component {%component} into your template.');
 
 const Component = () => {
@@ -132,10 +132,4 @@ const Component = () => {
     </div>
   );
 };
-
-// or get an array result at time of template compilation:
-runt('Drop a react component {%component} into your template.', true);
-
-// or at the time of execution:
-template({ component: <button key="foo" /> }, true);
 ```

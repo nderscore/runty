@@ -8,9 +8,8 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 const runt = runty({
-  asArray: true,
   fns: {
-    link: ([label, url]) => <Link to={useBaseUrl(url)}>{label}</Link>
+    link: ([label, url]) => <Link to={useBaseUrl(url)} key={`${url}/${label}`}>{label}</Link>
   }
 });
 
@@ -52,7 +51,7 @@ const features = [
 ];
 
 function Feature({ title, description }) {
-  const desc = runt(description)();
+  const desc = runt(description, true)();
   return (
     <div className={clsx('col col--4', styles.feature)}>
       <h3>{title}</h3>
