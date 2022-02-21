@@ -6,7 +6,7 @@ module.exports = {
   testEnvironment: 'node',
   collectCoverageFrom: ['src/**/*.js', 'src/**/*.ts'],
   moduleNameMapper: {
-    '^runty$': '<rootDir>/src/index.js',
+    '^runty$': '<rootDir>/src/index.ts',
   },
   roots: ['<rootDir>/tests'],
   testMatch: ['**/*.test.js'],
