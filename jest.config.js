@@ -1,14 +1,14 @@
 /* eslint-disable no-undef */
+/** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 module.exports = {
-  collectCoverageFrom: ['src/**/*.js'],
+  // FIXME: update preset after removing all JS code
+  preset: 'ts-jest/presets/js-with-ts-esm',
+  testEnvironment: 'node',
+  collectCoverageFrom: ['src/**/*.js', 'src/**/*.ts'],
   moduleNameMapper: {
     '^runty$': '<rootDir>/src/index.js',
   },
   roots: ['<rootDir>/tests'],
   testMatch: ['**/*.test.js'],
-  transform: {
-    '^.+\\.js$': 'babel-jest',
-  },
-  transformIgnorePatterns: ['<rootDir>/node_modules/'],
   verbose: true,
 };

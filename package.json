@@ -12,9 +12,9 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "yarn build:mjs && yarn build:cjs",
-    "build:cjs": "babel --delete-dir-on-start --out-dir dist/cjs --env-name cjs ./src",
-    "build:mjs": "babel --delete-dir-on-start --out-dir dist/mjs ./src",
+    "build": "yarn build:cjs &&yarn build:mjs",
+    "build:cjs": "tsc",
+    "build:mjs": "tsc --project tsconfig-mjs.json",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "test": "jest",
@@ -32,12 +32,17 @@
   },
   "main": "./dist/cjs/index.js",
   "module": "./dist/mjs/index.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
   "sideEffects": false,
   "devDependencies": {
-    "@babel/cli": "^7.17.3",
-    "@babel/core": "^7.17.5",
-    "@babel/preset-env": "^7.16.11",
-    "babel-jest": "^27.5.1",
+    "@types/jest": "^27.4.0",
     "eslint": "^8.9.0",
     "eslint-config-prettier": "^8.4.0",
     "eslint-plugin-jest": "^26.1.1",
@@ -46,7 +51,9 @@
     "jest": "^27.5.1",
     "lint-staged": "^12.3.4",
     "pinst": "^3.0.0",
-    "prettier": "^2.5.1"
+    "prettier": "^2.5.1",
+    "ts-jest": "^27.1.3",
+    "typescript": "^4.5.5"
   },
   "packageManager": "yarn@3.1.1"
 }
