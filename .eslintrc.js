@@ -1,12 +1,9 @@
 module.exports = {
   root: true,
-  parserOptions: {
-    ecmaVersion: 2020,
-    sourceType: 'module',
-  },
-  extends: ['eslint:recommended', 'prettier'],
+  parser: '@typescript-eslint/parser',
+  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'prettier'],
   ignorePatterns: ['/website/**/*'],
-  plugins: ['jest', 'prettier'],
+  plugins: ['jest', 'prettier', '@typescript-eslint'],
   env: {
     'jest/globals': true,
   },
