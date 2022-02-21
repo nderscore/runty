@@ -6,7 +6,7 @@
       "runty": ["./src/index"],
       "runty/*": ["./src/*"]
     },
-    "target": "es2015"
+    "target": "es2018"
   },
   "exclude": ["node_modules"]
 }
