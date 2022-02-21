@@ -1,4 +1,4 @@
-export { RSyntaxError } from './constants';
+export { RSyntaxError, RSyntaxErrorType } from './constants';
 export { runty } from './runty';
 export { fns } from './allFns';
 export { logicFns } from './logicFns';

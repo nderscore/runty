@@ -88,16 +88,16 @@ const result = template(variables);
 
 `RSyntaxError` is the Error class thrown when the template parser encounters invalid syntax.
 
-### Static Properties
+### Error Types
 
-The following static properties are available on the `RSyntaxError` class, which describe types of syntax errors.
+The following types of errors can be raised, which are exported as an object/enum `RSyntaxErrorType`
 
-* `RSyntaxError.EXPECTED_END`
-* `RSyntaxError.INVALID_EXPRESSION`
-* `RSyntaxError.INVALID_FUNCTION`
-* `RSyntaxError.NESTING_DEPTH`
-* `RSyntaxError.UNTERMINATED_EXPRESSION`
-* `RSyntaxError.UNTERMINATED_FUNCTION`
+* `RSyntaxErrorType.EXPECTED_END`
+* `RSyntaxErrorType.INVALID_EXPRESSION`
+* `RSyntaxErrorType.INVALID_FUNCTION`
+* `RSyntaxErrorType.NESTING_DEPTH`
+* `RSyntaxErrorType.UNTERMINATED_EXPRESSION`
+* `RSyntaxErrorType.UNTERMINATED_FUNCTION`
 
 ### Instance Properties
 
@@ -105,7 +105,7 @@ The following static properties are available on the `RSyntaxError` class, which
 
     Long-form syntax error message
 
-*   `type: RSyntaxError.(EXPECTED_END|INVALID_EXPRESSION|INVALID_FUNCTION|NESTING_DEPTH|UNTERMINATED_EXPRESSION|UNTERMINATED_FUNCTION)`
+*   `type: RSyntaxErrorType.(EXPECTED_END|INVALID_EXPRESSION|INVALID_FUNCTION|NESTING_DEPTH|UNTERMINATED_EXPRESSION|UNTERMINATED_FUNCTION)`
 
     The type of syntax error that was encountered.
 

@@ -1,4 +1,7 @@
-export type RuntyFunction = (args: unknown[], variables: Record<string, unknown>) => string | boolean | number | typeof variables[keyof typeof variables];
+export type RuntyFunction = (
+  args: unknown[],
+  variables: Record<string, unknown>
+) => string | boolean | number | typeof variables[keyof typeof variables];
 
 export type RuntyOptions = {
   fns: Record<string, RuntyFunction>;

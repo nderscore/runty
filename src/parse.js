@@ -1,4 +1,4 @@
-import { CONDITION, MODES, RSyntaxError, TOKENS, getterFn, stripEscapes } from './constants';
+import { CONDITION, MODES, RSyntaxError, RSyntaxErrorType, TOKENS, getterFn, stripEscapes } from './constants';
 
 export const parse = (template, options) => {
   const { fns, maxDepth } = options;
@@ -49,7 +49,7 @@ export const parse = (template, options) => {
 
   while (restTemplate.length > 0) {
     if (stack.length > maxDepth) {
-      throw new RSyntaxError(RSyntaxError.NESTING_DEPTH, restTemplate);
+      throw new RSyntaxError(RSyntaxErrorType.NESTING_DEPTH, restTemplate);
     }
 
     switch (mode) {
@@ -108,7 +108,7 @@ export const parse = (template, options) => {
             break;
           }
 
-          throw new RSyntaxError(RSyntaxError.EXPECTED_END, restTemplate);
+          throw new RSyntaxError(RSyntaxErrorType.EXPECTED_END, restTemplate);
         }
 
         const [startFunctionToken, functionName] = getToken(TOKENS.FUNCTION_START);
@@ -116,7 +116,7 @@ export const parse = (template, options) => {
           const fn = fns[functionName];
 
           if (!fn) {
-            throw new RSyntaxError(RSyntaxError.INVALID_FUNCTION, restTemplate, functionName);
+            throw new RSyntaxError(RSyntaxErrorType.INVALID_FUNCTION, restTemplate, functionName);
           }
 
           branch.push(fn);
@@ -124,7 +124,7 @@ export const parse = (template, options) => {
           break;
         }
 
-        throw new RSyntaxError(RSyntaxError.INVALID_EXPRESSION, restTemplate);
+        throw new RSyntaxError(RSyntaxErrorType.INVALID_EXPRESSION, restTemplate);
       }
 
       case MODES.FUNCTION: {
@@ -159,7 +159,7 @@ export const parse = (template, options) => {
             break;
           }
 
-          throw new RSyntaxError(RSyntaxError.EXPECTED_END, restTemplate);
+          throw new RSyntaxError(RSyntaxErrorType.EXPECTED_END, restTemplate);
         }
 
         const [startFunctionToken, functionName] = getToken(TOKENS.FUNCTION_START);
@@ -167,7 +167,7 @@ export const parse = (template, options) => {
           const fn = fns[functionName];
 
           if (!fn) {
-            throw new RSyntaxError(RSyntaxError.INVALID_FUNCTION, restTemplate, functionName);
+            throw new RSyntaxError(RSyntaxErrorType.INVALID_FUNCTION, restTemplate, functionName);
           }
 
           splitBranch(MODES.FUNCTION);
@@ -187,7 +187,8 @@ export const parse = (template, options) => {
   }
 
   if (mode !== MODES.TOP) {
-    const type = mode === MODES.FUNCTION ? RSyntaxError.UNTERMINATED_FUNCTION : RSyntaxError.UNTERMINATED_EXPRESSION;
+    const type =
+      mode === MODES.FUNCTION ? RSyntaxErrorType.UNTERMINATED_FUNCTION : RSyntaxErrorType.UNTERMINATED_EXPRESSION;
     throw new RSyntaxError(type, restTemplate);
   }
 

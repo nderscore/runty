@@ -1,4 +1,4 @@
-import { RSyntaxError, runty } from 'runty';
+import { RSyntaxError, RSyntaxErrorType, runty } from 'runty';
 
 describe('Syntax errors', () => {
   it('should throw EXPECTED_END', () => {
@@ -9,13 +9,13 @@ describe('Syntax errors', () => {
     try {
       runt('This is invalid {%syntax:foo}');
     } catch (e) {
-      expect(e.type).toBe(RSyntaxError.EXPECTED_END);
+      expect(e.type).toBe(RSyntaxErrorType.EXPECTED_END);
     }
 
     try {
       runt('This is invalid {$foo()');
     } catch (e) {
-      expect(e.type).toBe(RSyntaxError.EXPECTED_END);
+      expect(e.type).toBe(RSyntaxErrorType.EXPECTED_END);
     }
   });
 
@@ -27,13 +27,13 @@ describe('Syntax errors', () => {
     try {
       runt('This is invalid {}');
     } catch (e) {
-      expect(e.type).toBe(RSyntaxError.INVALID_EXPRESSION);
+      expect(e.type).toBe(RSyntaxErrorType.INVALID_EXPRESSION);
     }
 
     try {
       runt('This is invalid {foo}');
     } catch (e) {
-      expect(e.type).toBe(RSyntaxError.INVALID_EXPRESSION);
+      expect(e.type).toBe(RSyntaxErrorType.INVALID_EXPRESSION);
     }
   });
 
@@ -45,13 +45,13 @@ describe('Syntax errors', () => {
     try {
       runt('This is invalid {$doesntExist()}');
     } catch (e) {
-      expect(e.type).toBe(RSyntaxError.INVALID_FUNCTION);
+      expect(e.type).toBe(RSyntaxErrorType.INVALID_FUNCTION);
     }
 
     try {
       runt('This is invalid {$foo($doesntExist())}');
     } catch (e) {
-      expect(e.type).toBe(RSyntaxError.INVALID_FUNCTION);
+      expect(e.type).toBe(RSyntaxErrorType.INVALID_FUNCTION);
       expect(e.value).toBe('doesntExist');
     }
   });
@@ -64,7 +64,7 @@ describe('Syntax errors', () => {
     try {
       runt('This is invalid {%a?{%b?{%c?{%d}}}}');
     } catch (e) {
-      expect(e.type).toBe(RSyntaxError.NESTING_DEPTH);
+      expect(e.type).toBe(RSyntaxErrorType.NESTING_DEPTH);
     }
   });
 
@@ -76,7 +76,7 @@ describe('Syntax errors', () => {
     try {
       runt('This is invalid {%a?{%b?a}');
     } catch (e) {
-      expect(e.type).toBe(RSyntaxError.UNTERMINATED_EXPRESSION);
+      expect(e.type).toBe(RSyntaxErrorType.UNTERMINATED_EXPRESSION);
     }
   });
 
@@ -88,7 +88,7 @@ describe('Syntax errors', () => {
     try {
       runt('This is invalid {$foo(}');
     } catch (e) {
-      expect(e.type).toBe(RSyntaxError.UNTERMINATED_FUNCTION);
+      expect(e.type).toBe(RSyntaxErrorType.UNTERMINATED_FUNCTION);
     }
   });
 });
