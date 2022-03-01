@@ -6,3 +6,4 @@ export { numberFns } from './numberFns';
 export { stringFns } from './stringFns';
 export { utilFns } from './utilFns';
 export * from './fns';
+export * from './types';
