@@ -3,7 +3,10 @@ import { runty } from 'runty';
 const simpleExample = 'Now Playing: {%artist?{%artist} - }{%song}';
 
 describe(simpleExample, () => {
-  const template = runty()(simpleExample);
+  const template = runty.string<{
+    artist?: string;
+    song?: string;
+  }>(simpleExample);
 
   it.each([
     [undefined, 'Now Playing: '],
