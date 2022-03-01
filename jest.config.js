@@ -9,6 +9,6 @@ module.exports = {
     '^runty$': '<rootDir>/src/index.ts',
   },
   roots: ['<rootDir>/tests'],
-  testMatch: ['**/*.test.js'],
+  testMatch: ['**/*.test.js', '**/*.test.ts'],
   verbose: true,
 };

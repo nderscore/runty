@@ -6,7 +6,11 @@
     "module": "CommonJS",
     "moduleResolution": "node",
     "declaration": true,
-    "declarationDir": "./dist/types"
+    "declarationDir": "./dist/types",
+    "baseUrl": "./src",
+    "paths": {
+      "runty": ["./index.ts"]
+    }
   },
-  "include": ["./src/**/*"]
+  "include": ["./src/**/*", "../tests/**/*"]
 }
