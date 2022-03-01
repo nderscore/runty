@@ -27,7 +27,7 @@ const buildTree = <V extends VariableDictionary, R extends ReturnValues<V>>(
   return parse(template, opts);
 };
 
-export const runtyString = <
+export const string = <
   V extends VariableDictionary = DefaultVariableDictionary,
   R extends ReturnValues<V> = ReturnValues<V>
 >(
@@ -39,7 +39,7 @@ export const runtyString = <
   return result;
 };
 
-export const runtyArray = <
+export const array = <
   V extends VariableDictionary = DefaultVariableDictionary,
   R extends ReturnValues<V> = ReturnValues<V>
 >(
@@ -51,9 +51,7 @@ export const runtyArray = <
   return result;
 };
 
-export const runty = (() => {
-  const runty: typeof runtyString & { string: typeof runtyString; array: typeof runtyArray } = runtyString.bind(null);
-  runty.string = runtyString;
-  runty.array = runtyArray;
-  return runty;
-})();
+export const runty = {
+  array,
+  string,
+};
