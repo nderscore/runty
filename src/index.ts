@@ -1,29 +1,28 @@
+export { fns } from './allFns';
+export { RSyntaxError, RSyntaxErrorType } from './constants';
+export * from './fns';
+export { logicFns } from './logicFns';
+export { numberFns } from './numberFns';
+export { runty } from './runty';
+export { stringFns } from './stringFns';
 export type {
-  VariableDictionary,
-  ValueOf,
+  DefaultVariableDictionary,
   NestedValueOf,
   NestedVariableDictionary,
-  DefaultVariableDictionary,
   ReturnValues,
+  RuntyArrayTemplate,
+  RuntyConditionBranch,
+  RuntyConditionRestBranch,
   RuntyFunction,
+  RuntyFunctionBranch,
+  RuntyFunctionRestBranch,
   RuntyOptions,
   RuntyPartialOptions,
   RuntyStringTemplate,
-  RuntyArrayTemplate,
-  RuntyFunctionBranch,
-  RuntyFunctionRestBranch,
-  RuntyConditionBranch,
-  RuntyConditionRestBranch,
-  RuntyTemplateToken,
   RuntyTemplateBranch,
+  RuntyTemplateToken,
   RuntyTemplateTree,
+  ValueOf,
+  VariableDictionary,
 } from './types';
-
-export { RSyntaxError, RSyntaxErrorType } from './constants';
-export { runty } from './runty';
-export { fns } from './allFns';
-export { logicFns } from './logicFns';
-export { numberFns } from './numberFns';
-export { stringFns } from './stringFns';
 export { utilFns } from './utilFns';
-export * from './fns';

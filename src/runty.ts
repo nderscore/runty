@@ -1,3 +1,5 @@
+import { execute } from './execute';
+import { parse } from './parse';
 import type {
   DefaultVariableDictionary,
   ReturnValues,
@@ -7,8 +9,6 @@ import type {
   RuntyStringTemplate,
   VariableDictionary,
 } from './types';
-import { execute } from './execute';
-import { parse } from './parse';
 
 const DEFAULT_OPTIONS = {
   asArray: false,

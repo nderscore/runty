@@ -1,4 +1,4 @@
-import { CONDITION, MODES, RSyntaxError, RSyntaxErrorType, TOKENS, getterFn, stripEscapes } from './constants';
+import { CONDITION, getterFn, MODES, RSyntaxError, RSyntaxErrorType, stripEscapes, TOKENS } from './constants';
 
 export const parse = (template, options) => {
   const { fns, maxDepth } = options;

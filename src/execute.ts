@@ -1,14 +1,14 @@
+import { CONDITION } from './constants';
 import type {
   ReturnValues,
-  RuntyFunctionBranch,
-  RuntyFunctionRestBranch,
   RuntyConditionBranch,
   RuntyConditionRestBranch,
+  RuntyFunctionBranch,
+  RuntyFunctionRestBranch,
   RuntyTemplateBranch,
   RuntyTemplateTree,
   VariableDictionary,
 } from './types';
-import { CONDITION } from './constants';
 
 const walk = <V extends VariableDictionary, R extends ReturnValues<V>>(
   branch: RuntyTemplateBranch<V, R> | RuntyConditionBranch<V, R> | RuntyFunctionBranch<V, R> | string | R,
