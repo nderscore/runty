@@ -1,13 +1,13 @@
 import { ReturnValues, RSyntaxErrorType, VariableDictionary } from './types';
 
 export const TOKENS = {
-  ELSE_START: /^:/,
-  EXPRESSION_END: /^\}/,
-  IF_START: /^\?/,
-  EXPRESSION_START: /^\{/,
+  ELSE_START: ':',
+  EXPRESSION_END: '}',
+  IF_START: '?',
+  EXPRESSION_START: '{',
   FUNCTION_START: /^\$([$\w]+)\(/,
-  FUNCTION_SEPARATOR: /^,/,
-  FUNCTION_END: /^\)/,
+  FUNCTION_SEPARATOR: ',',
+  FUNCTION_END: ')',
   STRING_IF: /^(?:\\[{}:]|[^{}:])*/,
   STRING_ELSE: /^(?:\\[{}]|[^{}])*/,
   STRING_FUNCTION: /^(?:\\[,)]|[^,)])*/,

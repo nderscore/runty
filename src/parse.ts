@@ -53,6 +53,14 @@ export const parse = <V extends VariableDictionary, R extends ReturnValues<V>>(
   let restTemplate = template;
 
   const getToken = (token: ValueOf<typeof TOKENS>) => {
+    if (typeof token === 'string') {
+      if (restTemplate[0] === token) {
+        restTemplate = restTemplate.slice(1);
+        return [token];
+      }
+      return [];
+    }
+
     const result = restTemplate.match(token);
     if (!result || result[0].length === 0) {
       return [];
