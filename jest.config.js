@@ -11,4 +11,9 @@ module.exports = {
   roots: ['<rootDir>/tests'],
   testMatch: ['**/*.test.js', '**/*.test.ts'],
   verbose: true,
+  globals: {
+    'ts-jest': {
+      tsconfig: 'tests/tsconfig.json',
+    },
+  },
 };

@@ -7,10 +7,7 @@
     "moduleResolution": "node",
     "declaration": true,
     "declarationDir": "./dist/types",
-    "baseUrl": "./src",
-    "paths": {
-      "runty": ["./index.ts"]
-    }
+    "baseUrl": "./src"
   },
-  "include": ["./src/**/*", "./tests/**/*"]
+  "include": ["./src/**/*"]
 }

@@ -12,7 +12,7 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "yarn build:cjs &&yarn build:mjs",
+    "build": "yarn build:cjs && yarn build:mjs",
     "build:cjs": "tsc",
     "build:mjs": "tsc --project tsconfig-mjs.json",
     "lint": "eslint .",
