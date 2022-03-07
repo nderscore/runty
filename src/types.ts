@@ -14,7 +14,7 @@ export enum RSyntaxErrorType {
   UNTERMINATED_FUNCTION = "Unterminated function. Expected an argument or ')'",
 }
 
-export type VariableDictionary<T = unknown> = Record<string | symbol, T>;
+export type VariableDictionary<T = unknown> = Record<string | number | symbol, T>;
 
 export type ValueOf<V extends VariableDictionary> = V[keyof V];
 
