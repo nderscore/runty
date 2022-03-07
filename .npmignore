@@ -1,7 +1,11 @@
 .github/
+.husky/
+.yarn/
+.*
 coverage/
 src/
 website/
 tests/
 jest.config.js
-jsconfig.json
+tsconfig.json
+tsconfig-mjs.json
