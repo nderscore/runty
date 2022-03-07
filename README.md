@@ -50,7 +50,7 @@ This example uses simple conditional variable interpolations.
 import { runty } from 'runty';
 
 // compile a template
-const template = runty('Now Playing: {%artist?{%artist} - }{%song}');
+const template = runty.string('Now Playing: {%artist?{%artist} - }{%song}');
 
 // execute a template and pass it a dictionary of variables
 console.log(template({ artist: 'Weird Al Yankovic', song: 'Albuquerque' }));
@@ -58,15 +58,6 @@ console.log(template({ artist: 'Weird Al Yankovic', song: 'Albuquerque' }));
 
 console.log(template({ song: 'Albuquerque' }));
 // "Now Playing: Albuquerque"
-
-// using an array as a variable dictionary
-const anotherTemplate = runty('{%1?{%1}:Unknown Artist} - {%0}');
-
-console.log(anotherTemplate(['Albuquerque', 'Weird Al Yankovic']));
-// "Weird Al Yankovic - Albuquerque"
-
-console.log(anotherTemplate(['Albuquerque']));
-// "Unknown Artist - Albuquerque"
 ```
 
 ### Using Functions
@@ -76,7 +67,7 @@ This example uses [standard library `fns`](docs/fns.md).
 ```javascript
 import { runty, fns } from 'runty';
 
-const template = runty('{$gt(%count,0)?There {$eq(%count,1)?is:are} {%count} item{$not($eq(%count,1))?s} in your cart:Your cart is empty}.', { fns });
+const template = runty.string('{$gt(%count,0)?There {$eq(%count,1)?is:are} {%count} item{$not($eq(%count,1))?s} in your cart:Your cart is empty}.', { fns });
 
 console.log(template({ count: 0 }));
 // "Your cart is empty."
@@ -93,14 +84,14 @@ console.log(template({ count: 2 }));
 This example defines it's own custom functions to make available to templates.
 
 ```javascript
-import { runty } from 'runty';
+import { string } from 'runty';
 
 const fns = {
   plural: ([num]) => Number(num) !== 1,
   fooOrBar: ([defaultValue], { bar, foo }) => bar ?? foo ?? defaultValue
 };
 
-const runt = runty('There {$plural(%count)?are:is} {%count} item{$plural(%count)?s} in your cart.', { fns });
+const runt = string('There {$plural(%count)?are:is} {%count} item{$plural(%count)?s} in your cart.', { fns });
 
 console.log(template({ count: 1 }));
 // "There is 1 item in your cart."
@@ -109,7 +100,7 @@ console.log(template({ count: 3 }));
 // "There are 3 items in your cart."
 
 
-const anotherTemplate = runty('This is {$fooOrBar(neither)}.', { fns });
+const anotherTemplate = string('This is {$fooOrBar(neither)}.', { fns });
 
 console.log(anotherTemplate({ foo: 'Foo' }));
 // This is Foo.
@@ -128,14 +119,12 @@ may be useful to insert a React component into a string template.
 
 ```jsx
 import React from 'react';
-import { runty, runtyArray } from 'runty';
-
-const runt = runty();
+import { runty, array } from 'runty';
 
 // use runty.array():
 const template = runty.array('Drop a react component {%component} into your template.');
-// or use the runtyArray export:
-const template = runtyArray('Drop a react component {%component} into your template.');
+// or use the array export:
+const template = array('Drop a react component {%component} into your template.');
 
 const Component = () => {
   const values = template({ component: <button key="foo" /> });
