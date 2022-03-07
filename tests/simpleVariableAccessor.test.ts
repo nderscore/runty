@@ -1,9 +1,9 @@
-import { runty } from 'runty';
+import { string } from 'runty';
 
 const simpleExample = 'Now Playing: {%artist?{%artist} - }{%song}';
 
 describe(simpleExample, () => {
-  const template = runty.string<{
+  const template = string<{
     artist?: string;
     song?: string;
   }>(simpleExample);

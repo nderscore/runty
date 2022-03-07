@@ -1,4 +1,4 @@
-import { runty } from 'runty';
+import { array } from 'runty';
 
 describe('Array output', () => {
   const str = 'array {%something} output';
@@ -6,6 +6,6 @@ describe('Array output', () => {
   const expectedOutput = ['array ', something, ' output'];
 
   it('triggers array output', () => {
-    expect(runty.array(str)({ something })).toStrictEqual(expectedOutput);
+    expect(array(str)({ something })).toStrictEqual(expectedOutput);
   });
 });
