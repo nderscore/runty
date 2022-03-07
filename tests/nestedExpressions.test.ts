@@ -4,7 +4,7 @@ const nestedExample =
   '{$gt(%count,0)?There {$eq(%count,1)?is:are} {%count} item{$not($eq(%count,1))?s} in your cart:Your cart is empty}.';
 
 describe(nestedExample, () => {
-  const template = runty({ fns })(nestedExample);
+  const template = runty.string(nestedExample, { fns });
 
   it.each([
     [{}, 'Your cart is empty.'],
