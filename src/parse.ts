@@ -85,6 +85,7 @@ export const parse = <V extends VariableDictionary, R extends ReturnValues<V>>(
     const [, parentNode] = getParentNode();
     const { nodes } = parentNode as BranchNode<V, R>;
     nodes[nodes.length - 1] = newNode;
+    currentNode = newNode;
 
     splitBranch(MODE.IF, ifCase);
   };
@@ -177,7 +178,7 @@ export const parse = <V extends VariableDictionary, R extends ReturnValues<V>>(
       const { args } = currentNode;
 
       const [separator] = getToken(TOKENS.FUNCTION_SEPARATOR);
-      if (separator && args.length === 1) {
+      if (separator && args.length === 0) {
         args.push(createValueNode('' as R));
       }
 
