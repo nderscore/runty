@@ -2,8 +2,10 @@ import { runty } from 'runty';
 
 const arrayExample = 'Now Playing: {%1?{%1} - }{%0}';
 
+type ArrayDataType = { 0?: string; 1?: string };
+
 describe(arrayExample, () => {
-  const template = runty()(arrayExample);
+  const template = runty.string<ArrayDataType>(arrayExample);
 
   it.each([
     [undefined, 'Now Playing: '],
@@ -11,6 +13,6 @@ describe(arrayExample, () => {
     [['Albuquerque'], 'Now Playing: Albuquerque'],
     [['Albuquerque', 'Weird Al Yankovic'], 'Now Playing: Weird Al Yankovic - Albuquerque'],
   ])('given %j, return %s', (input, output) => {
-    expect(template(input)).toBe(output);
+    expect(template(input as ArrayDataType)).toBe(output);
   });
 });

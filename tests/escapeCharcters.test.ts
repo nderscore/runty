@@ -3,12 +3,12 @@ import { fns, runty } from 'runty';
 const escapesExample = 'Escaped characters \\{ test {$cat(\\%test\\),\\$cat(\\))} {$eq(%x,1)?\\{\\:\\}:\\}}';
 
 describe(escapesExample, () => {
-  const template = runty({
+  const template = runty.string(escapesExample, {
     fns: {
       ...fns,
       cat: ([a, b]) => a + b,
     },
-  })(escapesExample);
+  });
 
   it.each([
     [{}, 'Escaped characters { test %test)$cat() }'],

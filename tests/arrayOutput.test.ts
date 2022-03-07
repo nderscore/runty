@@ -5,8 +5,7 @@ describe('Array output', () => {
   const something = { foo: 1234 };
   const expectedOutput = ['array ', something, ' output'];
 
-  it('triggers array output in parser', () => {
-    const runt = runty();
-    expect(runt(str, true)({ something })).toStrictEqual(expectedOutput);
+  it('triggers array output', () => {
+    expect(runty.array(str)({ something })).toStrictEqual(expectedOutput);
   });
 });

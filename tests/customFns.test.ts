@@ -3,11 +3,11 @@ import { runty } from 'runty';
 const customExample = 'There {$plural(%count)?are:is} {%count} item{$plural(%count)?s} in your cart.';
 
 describe(customExample, () => {
-  const template = runty({
+  const template = runty.string(customExample, {
     fns: {
       plural: ([val]) => val !== 1,
     },
-  })(customExample);
+  });
 
   it.each([
     [{ count: 0 }, 'There are 0 items in your cart.'],

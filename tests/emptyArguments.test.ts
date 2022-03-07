@@ -1,14 +1,14 @@
-import { runty } from 'runty';
+import { runty, RuntyFunction } from 'runty';
 
 const escapesExample = 'Empty function arguments {$f(,,)}{$f(%a,,%a)}{$f(,,%a)}{$f(,%a,)}{$f(,,$f(,),,)}';
 
 describe(escapesExample, () => {
   it('should correctly parse empty function arguments as empty strings', () => {
-    const f = jest.fn(() => 'f');
+    const f = jest.fn((() => 'f') as RuntyFunction<{ a: string }, string>);
 
-    const result = runty({
+    const result = runty.string(escapesExample, {
       fns: { f },
-    })(escapesExample)({ a: 'a' });
+    })({ a: 'a' });
 
     expect(result).toBe('Empty function arguments fffff');
     expect(f.mock.calls.length).toBe(6);

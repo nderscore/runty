@@ -12,5 +12,5 @@
       "runty": ["./index.ts"]
     }
   },
-  "include": ["./src/**/*", "../tests/**/*"]
+  "include": ["./src/**/*", "./tests/**/*"]
 }

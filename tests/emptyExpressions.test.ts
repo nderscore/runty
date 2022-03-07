@@ -3,7 +3,7 @@ import { runty } from 'runty';
 const emptyExample = 'Empty Expressions: {%a?}{%a?:}{%a?:b}{%a?a:}';
 
 describe(emptyExample, () => {
-  const template = runty()(emptyExample);
+  const template = runty.string(emptyExample);
 
   it.each([
     [{}, 'Empty Expressions: b'],
