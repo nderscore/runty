@@ -8,10 +8,10 @@ export const TOKENS = {
   FUNCTION_START: /^\$([$\w]+)\(/,
   FUNCTION_SEPARATOR: /^,/,
   FUNCTION_END: /^\)/,
-  STRING_IF: /^(?:\\.|[^{}:])*/,
-  STRING_ELSE: /^(?:\\.|[^{}])*/,
-  STRING_FUNCTION: /^(?:\\.|[^,)])*/,
-  STRING_OUTER: /^(?:\\.|[^{])*/,
+  STRING_IF: /^(?:\\[{}:]|[^{}:])*/,
+  STRING_ELSE: /^(?:\\[{}]|[^{}])*/,
+  STRING_FUNCTION: /^(?:\\[,)]|[^,)])*/,
+  STRING_OUTER: /^(?:\\\{|[^{])*/,
   VARIABLE: /^%([$\w]+(?:\.\w+)*)/,
 };
 
