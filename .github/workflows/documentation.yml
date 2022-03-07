@@ -16,10 +16,10 @@ jobs:
           node-version: '14.x'
       - name: Test Build
         run: |
-          yarn --frozen-lockfile
+          yarn --immutable
           yarn build
           cd website
-          yarn --frozen-lockfile
+          yarn --immutable
           yarn build
   publish:
     if: github.event_name != 'pull_request'
@@ -49,8 +49,8 @@ jobs:
         run: |
           git config --global user.email "actions@gihub.com"
           git config --global user.name "gh-actions"
-          yarn --frozen-lockfile
+          yarn --immutable
           yarn build
           cd website
-          yarn --frozen-lockfile
+          yarn --immutable
           yarn deploy
