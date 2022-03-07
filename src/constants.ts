@@ -1,4 +1,4 @@
-import type { ReturnValues, VariableDictionary } from './types';
+import { ReturnValues, RSyntaxErrorType, VariableDictionary } from './types';
 
 export const TOKENS = {
   ELSE_START: /^:/,
@@ -14,25 +14,6 @@ export const TOKENS = {
   STRING_OUTER: /^(?:\\.|[^{])*/,
   VARIABLE: /^%([$\w]+(?:\.\w+)*)/,
 };
-
-export enum MODES {
-  EXPRESSION,
-  FUNCTION,
-  IF,
-  ELSE,
-  TOP,
-}
-
-export const CONDITION = Symbol('RuntyCondition');
-
-export enum RSyntaxErrorType {
-  EXPECTED_END = "Expected end of expression '}' or beginning of conditional expression '?'",
-  INVALID_EXPRESSION = 'Invalid expression. Expected a valid variable or function',
-  INVALID_FUNCTION = 'Invalid function name',
-  NESTING_DEPTH = 'Maximum nesting depth exceeded',
-  UNTERMINATED_EXPRESSION = 'Unterminated expression',
-  UNTERMINATED_FUNCTION = "Unterminated function. Expected an argument or ')'",
-}
 
 export class RSyntaxError extends Error {
   public type: RSyntaxErrorType;

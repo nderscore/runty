@@ -1,51 +1,54 @@
-import { CONDITION } from './constants';
-import type {
+import {
+  BranchNode,
+  ConditionNode,
+  FunctionNode,
+  NODETYPE,
   ReturnValues,
-  RuntyConditionBranch,
-  RuntyConditionRestBranch,
-  RuntyFunctionBranch,
-  RuntyFunctionRestBranch,
-  RuntyTemplateBranch,
-  RuntyTemplateTree,
+  ValueNode,
   VariableDictionary,
 } from './types';
 
 const walk = <V extends VariableDictionary, R extends ReturnValues<V>>(
-  branch: RuntyTemplateBranch<V, R> | RuntyConditionBranch<V, R> | RuntyFunctionBranch<V, R> | string | R,
+  node: BranchNode<V, R> | ConditionNode<V, R> | FunctionNode<V, R> | ValueNode<V, R>,
   variables: V
-) => {
-  if (!Array.isArray(branch)) {
-    return branch;
+): R[] => {
+  const { type } = node;
+
+  if (type === NODETYPE.VALUE) {
+    return [node.value];
   }
 
-  const [firstItem, ...restBranch] = branch;
+  if (type === NODETYPE.CONDITION) {
+    const { condition, ifCase, elseCase } = node;
 
-  if (firstItem === CONDITION) {
-    const [condition, ifCase, elseCase = ['']] = restBranch as RuntyConditionRestBranch<V, R>;
-
-    const conditionResult = walk(condition, variables);
+    const [conditionResult] = walk(condition, variables);
 
     if (conditionResult === 0 || !!conditionResult) {
       return walk(ifCase, variables);
     }
 
-    return walk(elseCase, variables);
+    if (elseCase) {
+      return walk(elseCase, variables);
+    }
+
+    return ['' as R];
   }
 
-  if (typeof firstItem === 'function') {
-    const args = (restBranch as RuntyFunctionRestBranch<V, R>).map((item) => walk(item, variables));
-
-    return firstItem(args, variables);
+  if (type === NODETYPE.FUNCTION) {
+    const { args, fn } = node;
+    return [
+      fn(
+        args.flatMap((arg) => walk(arg, variables)),
+        variables
+      ),
+    ];
   }
 
-  return (branch as RuntyTemplateBranch<V, R>).map((item) => walk(item, variables));
+  const { nodes } = node;
+  return nodes.flatMap((node) => walk(node, variables));
 };
 
 export const execute = <V extends VariableDictionary, R extends ReturnValues<V>>(
-  tree: RuntyTemplateTree<V, R>,
-  variables: V
-) => {
-  const result = walk(tree, variables);
-
-  return result.flat(Infinity) as (string | R)[];
-};
+  tree: BranchNode<V, R>,
+  variables: V = {} as V
+) => walk(tree, variables);

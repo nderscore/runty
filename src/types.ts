@@ -1,3 +1,19 @@
+export enum NODETYPE {
+  BRANCH,
+  CONDITION,
+  FUNCTION,
+  VALUE,
+}
+
+export enum RSyntaxErrorType {
+  EXPECTED_END = "Expected end of expression '}' or beginning of conditional expression '?'",
+  INVALID_EXPRESSION = 'Invalid expression. Expected a valid variable or function',
+  INVALID_FUNCTION = 'Invalid function name',
+  NESTING_DEPTH = 'Maximum nesting depth exceeded',
+  UNTERMINATED_EXPRESSION = 'Unterminated expression',
+  UNTERMINATED_FUNCTION = "Unterminated function. Expected an argument or ')'",
+}
+
 export type VariableDictionary<T = unknown> = Record<string | symbol, T>;
 
 export type ValueOf<V extends VariableDictionary> = V[keyof V];
@@ -27,39 +43,31 @@ export type RuntyPartialOptions<V extends VariableDictionary, R extends ReturnVa
   maxDepth?: number;
 };
 
-export type RuntyStringTemplate<V extends VariableDictionary> = (variables: V) => string;
+export type ValueNode<V extends VariableDictionary, R extends ReturnValues<V>> = {
+  type: NODETYPE.VALUE;
+  value: R;
+};
 
-export type RuntyArrayTemplate<V extends VariableDictionary, R extends ReturnValues<V>> = (
-  variables: V
-) => (string | R)[];
+export type BranchNode<V extends VariableDictionary, R extends ReturnValues<V>> = {
+  type: NODETYPE.BRANCH;
+  nodes: (ValueNode<V, R> | FunctionNode<V, R> | ConditionNode<V, R>)[];
+};
 
-export type RuntyFunctionRestBranch<V extends VariableDictionary, R extends ReturnValues<V>> = RuntyTemplateBranch<
-  V,
-  R
->;
+export type FunctionNode<V extends VariableDictionary, R extends ReturnValues<V>> = {
+  type: NODETYPE.FUNCTION;
+  fn: RuntyFunction<V, R>;
+  args: (ValueNode<V, R> | FunctionNode<V, R>)[];
+};
 
-export type RuntyFunctionBranch<V extends VariableDictionary, R extends ReturnValues<V>> = [
-  RuntyFunction<V, R>,
-  ...RuntyFunctionRestBranch<V, R>[]
-];
+export type ConditionNode<V extends VariableDictionary, R extends ReturnValues<V>> = {
+  type: NODETYPE.CONDITION;
+  condition: FunctionNode<V, R>;
+  ifCase: BranchNode<V, R>;
+  elseCase?: BranchNode<V, R>;
+};
 
-export type RuntyConditionRestBranch<V extends VariableDictionary, R extends ReturnValues<V>> =
-  | [RuntyFunctionBranch<V, R>, RuntyTemplateBranch<V, R>]
-  | [RuntyFunctionBranch<V, R>, RuntyTemplateBranch<V, R>, RuntyTemplateBranch<V, R>];
-
-export type RuntyConditionBranch<V extends VariableDictionary, R extends ReturnValues<V>> =
-  | [symbol, ...RuntyConditionRestBranch<V, R>];
-
-export type RuntyTemplateToken<V extends VariableDictionary, R extends ReturnValues<V>> = (
-  | RuntyConditionBranch<V, R>
-  | RuntyFunctionBranch<V, R>
-)[];
-
-export type RuntyTemplateBranch<V extends VariableDictionary, R extends ReturnValues<V>> =
-  | (string | RuntyTemplateToken<V, R>)[]
-  | [];
-
-export type RuntyTemplateTree<V extends VariableDictionary, R extends ReturnValues<V>> = (
-  | string
-  | RuntyTemplateToken<V, R>
-)[];
+export type RuntyNode<V extends VariableDictionary, R extends ReturnValues<V>> =
+  | BranchNode<V, R>
+  | FunctionNode<V, R>
+  | ConditionNode<V, R>
+  | ValueNode<V, R>;

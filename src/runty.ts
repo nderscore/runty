@@ -3,10 +3,8 @@ import { parse } from './parse';
 import type {
   DefaultVariableDictionary,
   ReturnValues,
-  RuntyArrayTemplate,
   RuntyOptions,
   RuntyPartialOptions,
-  RuntyStringTemplate,
   VariableDictionary,
 } from './types';
 
@@ -32,10 +30,10 @@ export const string = <
   R extends ReturnValues<V> = ReturnValues<V>
 >(
   template: string,
-  options: RuntyPartialOptions<V, ReturnValues<V>> = {}
+  options: RuntyPartialOptions<V, R> = {}
 ) => {
-  const tree = buildTree(options, template);
-  const result: RuntyStringTemplate<V> = (variables = {} as V) => execute<V, R>(tree, variables).join('');
+  const tree = buildTree<V, R>(options, template);
+  const result = (variables: V) => execute<V, R>(tree, variables).join('');
   return result;
 };
 
@@ -46,8 +44,8 @@ export const array = <
   template: string,
   options: RuntyPartialOptions<V, R> = {}
 ) => {
-  const tree = buildTree(options, template);
-  const result: RuntyArrayTemplate<V, R> = (variables = {} as V) => execute<V, R>(tree, variables);
+  const tree = buildTree<V, R>(options, template);
+  const result = (variables: V) => execute<V, R>(tree, variables);
   return result;
 };
 
