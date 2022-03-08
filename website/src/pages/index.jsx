@@ -2,12 +2,12 @@ import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import React from 'react';
 import clsx from 'clsx';
-import { runty } from 'runty';
+import { array } from 'runty';
 import styles from './index.module.css';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
-const runt = runty({
+const runt = array({
   fns: {
     link: ([label, url]) => <Link to={useBaseUrl(url)} key={`${url}/${label}`}>{label}</Link>
   }

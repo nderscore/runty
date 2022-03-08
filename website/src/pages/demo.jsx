@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef } from 'react';
-import { fns, runty } from 'runty';
+import { fns, string } from 'runty';
 
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
@@ -36,8 +36,6 @@ const inputStyles = {
   width: '100%',
 };
 
-const runt = runty({ fns });
-
 const Demo = () => {
   const templateRef = useRef();
   const valuesRef = useRef();
@@ -48,7 +46,7 @@ const Demo = () => {
 
   const [template, templateError] = useMemo(() => {
     try {
-      return [runt(templateString)];
+      return [string(templateString, { fns })];
     } catch (e) {
       return [, e];
     }
