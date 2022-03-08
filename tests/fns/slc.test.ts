@@ -10,6 +10,7 @@ describe('fn slc', () => {
     ['{$slc(%a,%b,%c)}', { a: 'aaabbc', b: 2, c: 4 }, 'ab'],
     ['{$slc(%a,%b,%c)}', { a: [1, 2, 3, 4, 5], b: 2, c: 4 }, '3,4'],
     ['{$slc(abc)}', {}, 'abc'],
+    ['{$slc(abcdef,-2,)}', {}, 'ef'],
     ['{$slc()}', {}, ''],
   ])('given %s, %j, return %s', (template, values, output) => {
     expect(runty.string<NestedVariableDictionary<string | number | number[]>>(template, opts)(values)).toBe(output);
