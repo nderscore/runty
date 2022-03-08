@@ -71,15 +71,12 @@ module.exports = {
       ],
       copyright: `Copyright © ${new Date().getFullYear()} _nderscore. Built with Docusaurus.`,
     },
-    googleAnalytics: {
-      trackingID: 'UA-179582829-1',
-      anonymizeIP: true,
-    },
-    algolia: {
-      apiKey: '34f3cc411eb2a349c0d88159c7bf7caf',
-      indexName: 'runty_js',
-      searchParameters: {},
-    },
+    // FIXME: need new algolia credentials
+    // algolia: {
+    //   apiKey: '34f3cc411eb2a349c0d88159c7bf7caf',
+    //   indexName: 'runty_js',
+    //   searchParameters: {},
+    // },
   },
   presets: [
     [
@@ -89,6 +86,10 @@ module.exports = {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           editUrl: 'https://github.com/nderscore/runty/edit/master/website/',
+        },
+        googleAnalytics: {
+          trackingID: 'UA-179582829-1',
+          anonymizeIP: true,
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),

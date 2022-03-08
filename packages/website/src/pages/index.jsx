@@ -7,11 +7,11 @@ import styles from './index.module.css';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
-const runt = array({
+const opts = {
   fns: {
     link: ([label, url]) => <Link to={useBaseUrl(url)} key={`${url}/${label}`}>{label}</Link>
   }
-});
+};
 
 const features = [
   {
@@ -51,7 +51,7 @@ const features = [
 ];
 
 function Feature({ title, description }) {
-  const desc = runt(description, true)();
+  const desc = array(description, opts)();
   return (
     <div className={clsx('col col--4', styles.feature)}>
       <h3>{title}</h3>
