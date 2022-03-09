@@ -67,7 +67,7 @@ function Home() {
     <Layout description="Extensible conditional string templates.">
       <header className={clsx('hero hero--primary', styles.heroBanner)}>
         <div className="container">
-          <img src={useBaseUrl('img/logo.svg')} height="96" />
+          <img src={useBaseUrl('img/logo.svg')} className="logo" />
           <h1 className="hero__title">{siteConfig.title}</h1>
           <p className="hero__subtitle">{siteConfig.tagline}</p>
           <div className={styles.buttons}>

@@ -54,15 +54,6 @@ module.exports = {
           title: 'Community',
           items: [
             {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/runty',
-            },
-          ],
-        },
-        {
-          title: 'More',
-          items: [
-            {
               label: 'GitHub',
               href: 'https://github.com/nderscore/runty',
             },

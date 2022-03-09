@@ -1,1 +1,8 @@
 /* stylelint-disable docusaurus/copyright-header */
+.logo {
+  height: 96px;
+}
+
+[data-theme="dark"] .navbar__logo img {
+  filter: invert(1);
+}
