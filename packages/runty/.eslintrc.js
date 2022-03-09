@@ -4,9 +4,9 @@ module.exports = {
   extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'prettier'],
   parserOptions: {
     tsconfigRootDir: './packages/runty',
-    project: ['./packages/**/tsconfig.json']
+    project: ['./packages/**/tsconfig.json'],
   },
-  ignorePatterns: ['**/dist/**/*', '**/build/**/', 'packages/website/**/*'],
+  ignorePatterns: ['**/dist/**/*', '**/build/**/', '**/temp/**/*'],
   plugins: ['jest', '@typescript-eslint', 'simple-import-sort', 'prettier'],
   env: {
     'jest/globals': true,
@@ -15,6 +15,6 @@ module.exports = {
     'prettier/prettier': 'error',
     'sort-imports': 'off',
     'simple-import-sort/imports': 'error',
-    'simple-import-sort/exports': 'error'
+    'simple-import-sort/exports': 'error',
   },
 };

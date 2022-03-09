@@ -1,4 +1,4 @@
 {
-  "*.js": "yarn runty lint:fix",
-  "*.ts": "yarn runty lint:fix"
+  "*.js": "yarn lint:fix",
+  "*.ts": "yarn lint:fix"
 }

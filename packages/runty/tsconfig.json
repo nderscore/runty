@@ -9,5 +9,5 @@
     "declarationDir": "./dist/types",
     "baseUrl": "./src"
   },
-  "include": ["./src/**/*", "./tsup.config.ts"]
+  "include": ["./src/**/*", "./size-estimate", "./tsup.config.ts"]
 }

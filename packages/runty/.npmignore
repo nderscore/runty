@@ -4,8 +4,9 @@
 .*
 coverage/
 src/
-website/
+size-estimate/
+temp/
 tests/
 jest.config.js
 tsconfig.json
-tsconfig-mjs.json
+tsup.config.ts

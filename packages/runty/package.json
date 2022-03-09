@@ -16,7 +16,11 @@
     "test": "jest",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
-    "lint:staged": "lint-staged"
+    "lint:staged": "lint-staged",
+    "estimate:size": "yarn estimate:build:engine && yarn estimate:build:fns && yarn estimate:check",
+    "estimate:build:engine": "tsup size-estimate/engine-only/index.ts --outDir temp/engine-only",
+    "estimate:build:fns": "tsup size-estimate/with-fns/index.ts --outDir temp/with-fns",
+    "estimate:check": "minified-size temp/engine-only/index.mjs temp/with-fns/index.mjs"
   },
   "homepage": "https://runty.js.org",
   "repository": {
@@ -48,6 +52,7 @@
     "eslint-plugin-simple-import-sort": "7.0.0",
     "jest": "27.5.1",
     "lint-staged": "12.3.5",
+    "minified-size": "2.3.1",
     "prettier": "2.5.1",
     "ts-jest": "27.1.3",
     "tsup": "5.12.0",
