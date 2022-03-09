@@ -5,5 +5,5 @@
       "runty": ["./index.ts"]
     }
   },
-  "include": ["./tests/**/*"]
+  "include": ["./**/*"]
 }
