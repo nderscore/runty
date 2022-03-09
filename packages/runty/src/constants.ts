@@ -1,4 +1,4 @@
-import { ReturnValues, RSyntaxErrorType, VariableDictionary } from './types';
+import { ReturnValues, VariableDictionary } from './types';
 
 export const TOKENS = {
   ELSE_START: ':',
@@ -14,22 +14,6 @@ export const TOKENS = {
   STRING_OUTER: /^(?:\\\{|[^{])*/,
   VARIABLE: /^%([$\w]+(?:\.\w+)*)/,
 };
-
-export class RSyntaxError extends Error {
-  public type: RSyntaxErrorType;
-  public rest?: string;
-  public value?: string;
-
-  constructor(type: RSyntaxErrorType, rest?: string, value?: string) {
-    const message = `${type}${value !== undefined ? ` (${value})` : ''}${rest ? ` near "${rest.slice(0, 10)}"` : ''}`;
-
-    super(message);
-
-    this.type = type;
-    this.rest = rest;
-    this.value = value;
-  }
-}
 
 export const stripEscapes = (str: string) => str.replace(/\\(.)/g, '$1');
 

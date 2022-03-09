@@ -1,11 +1,11 @@
-import { getterFn, RSyntaxError, stripEscapes, TOKENS } from './constants';
+import { getterFn, stripEscapes, TOKENS } from './constants';
+import { RSyntaxError, RSyntaxErrorType } from './RSyntaxError';
 import {
   BranchNode,
   ConditionNode,
   FunctionNode,
   NODETYPE,
   ReturnValues,
-  RSyntaxErrorType,
   RuntyFunction,
   RuntyNode,
   RuntyOptions,

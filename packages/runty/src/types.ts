@@ -5,15 +5,6 @@ export enum NODETYPE {
   VALUE,
 }
 
-export enum RSyntaxErrorType {
-  EXPECTED_END = "Expected end of expression '}' or beginning of conditional expression '?'",
-  INVALID_EXPRESSION = 'Invalid expression. Expected a valid variable or function',
-  INVALID_FUNCTION = 'Invalid function name',
-  NESTING_DEPTH = 'Maximum nesting depth exceeded',
-  UNTERMINATED_EXPRESSION = 'Unterminated expression',
-  UNTERMINATED_FUNCTION = "Unterminated function. Expected an argument or ')'",
-}
-
 export type VariableDictionary<T = unknown> = Record<string | number | symbol, T>;
 
 export type ValueOf<V extends VariableDictionary> = V[keyof V];
