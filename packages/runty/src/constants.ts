@@ -12,7 +12,7 @@ export const TOKENS = {
   STRING_ELSE: /^(?:\\[{}]|[^{}])*/,
   STRING_FUNCTION: /^(?:\\[,)]|[^,)])*/,
   STRING_OUTER: /^(?:\\\{|[^{])*/,
-  VARIABLE: /^%([$\w]+(?:\.\w+)*)/,
+  VARIABLE: /^%([$\w]+(?:\.[$\w]+)*)/,
 };
 
 export const stripEscapes = (str: string) => str.replace(/\\(.)/g, '$1');
