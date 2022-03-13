@@ -5,64 +5,103 @@ slug: /
 
 ## Installation
 
+### Install locally
+
+#### NPM
 ```shell
-$ npm install runty
-
-or
-
-$ yarn add runty
+npm install runty
 ```
 
-Or import the library directly in your browser or deno:
+#### Yarn
+```shell
+yarn add runty
+```
+
+### Use via CDN
+
+#### Unpkg
+
+```javascript
+import { runty } from 'https://unpkg.com/runty/dist/index.mjs';
+```
+
+#### Skypack
 
 ```javascript
 import { runty } from 'https://cdn.skypack.dev/runty';
 ```
 
-------
-
 ## Quick Examples
 
-### Conditional Interpolations
+Below are some quick examples demonstrating how runty can be used. 
 
-This example uses simple conditional variable interpolations.
+### Simple Interpolations
+
+The most basic usage of runty is to interpolate values from an object into a string:
 
 ```javascript
 import { runty } from 'runty';
 
-// create a parser
-const runt = runty();
-
-// compile a template
-const template = runt('Now Playing: {%artist?{%artist} - }{%song}');
+// parse a string template
+const template = runty.string('Hello {%name}!');
 
 // execute a template and pass it a dictionary of variables
+console.log(template({ name: 'Somebody' }));
+// "Hello Somebody!"
+
+// variable accessors can also access nested properties
+const anotherTemplate = runty.string('Hello {%person.name}!');
+
+console.log(template({ person: { name: 'Somebody' } }));
+// "Hello Somebody!"
+```
+
+### Conditional Interpolations
+
+Runty also supports conditional expressions, which look similar to tenary syntax:
+
+```javascript
+import { runty } from 'runty';
+
+const template = runty.string('Good {%pm?night:morning}!');
+
+console.log(template({ pm: false }));
+// "Good morning!"
+
+console.log(template({ pm: true }));
+// "Good night!"
+```
+
+The else case is optional and will default to an empty string. Conditional interpolations can also have other interpolations nested inside of their if/else cases.
+
+This example only renders the artist name and extra hyphen if an artist name is defined with a renderable value:
+
+```javascript
+import { runty } from 'runty';
+
+const template = runty.string('Now Playing: {%artist?{%artist} - }{%song}');
+
 console.log(template({ artist: 'Weird Al Yankovic', song: 'Albuquerque' }));
 // "Now Playing: Weird Al Yankovic - Albuquerque"
 
 console.log(template({ song: 'Albuquerque' }));
 // "Now Playing: Albuquerque"
-
-// using an array as a variable dictionary
-const anotherTemplate = runt('{%1?{%1}:Unknown Artist} - {%0}');
-
-console.log(anotherTemplate(['Albuquerque', 'Weird Al Yankovic']));
-// "Weird Al Yankovic - Albuquerque"
-
-console.log(anotherTemplate(['Albuquerque']));
-// "Unknown Artist - Albuquerque"
 ```
 
 ### Using Functions
 
-This example uses [standard library `fns`](fns.md).
+Templates may also call functions, which can be enabled by Functions can be called from within templates, if enabled. One of the configurable options runty accepts is `fns`, an object of functions to make available to templates. 
+
+This example uses [standard library `fns`](fns.md), an optional collection of common logical, formatting, and data manipulation utilities which come with runty.
 
 ```javascript
 import { runty, fns } from 'runty';
 
-const runt = runty({ fns });
-
-const template = runt('{$gt(%count,0)?There {$eq(%count,1)?is:are} {%count} item{$not($eq(%count,1))?s} in your cart:Your cart is empty}.');
+// pass 'fns' option to runty
+const template = runty.string(
+  '{$gt(%count,0)?There {$eq(%count,1)?is:are} {%count} item{$not($eq(%count,1))?s} in your cart:Your cart is empty}.', 
+  { fns }
+);
 
 console.log(template({ count: 0 }));
 // "Your cart is empty."
@@ -76,19 +115,23 @@ console.log(template({ count: 2 }));
 
 ### Extending With Custom Functions
 
-This example defines it's own custom functions to make available to templates.
+This example defines it's own custom functions:
 
 ```javascript
 import { runty } from 'runty';
 
-const runt = runty({
-  fns: {
-    plural: ([num]) => Number(num) !== 1,
-    fooOrBar: ([defaultValue], { bar, foo }) => bar ?? foo ?? defaultValue
-  }
-});
+// runty functions recieve two arguments:
+// - a list of arguments passed by the template
+// - a reference to the variable dictionary
+const fns: {
+  plural: ([num]) => Number(num) !== 1,
+  fooOrBar: ([defaultValue], { bar, foo }) => bar ?? foo ?? defaultValue
+};
 
-const template = runt('There {$plural(%count)?are:is} {%count} item{$plural(%count)?s} in your cart.');
+const template = runty.string(
+  'There {$plural(%count)?are:is} {%count} item{$plural(%count)?s} in your cart.',
+  { fns }
+);
 
 console.log(template({ count: 1 }));
 // "There is 1 item in your cart."
@@ -97,39 +140,77 @@ console.log(template({ count: 3 }));
 // "There are 3 items in your cart."
 
 
-const anotherTemplate = runt('This is {$fooOrBar(neither)}.');
+const anotherTemplate = runty.string('This is {$fooOrBar(neither)}.', { fns });
 
 console.log(anotherTemplate({ foo: 'Foo' }));
-// This is Foo.
+// "This is Foo."
 
 console.log(anotherTemplate({ bar: 'Bar' }));
-// This is Bar.
+// "This is Bar."
 
 console.log(anotherTemplate());
-// This is neither.
+// "This is neither."
 ```
 
 ### Getting Template Result As An Array
 
-In some cases, it may be useful to interpolate non-stringifiable values in a string template. For example, it
-may be useful to insert a React component into a string template.
+In some cases, it may be useful to interpolate non-stringifiable values in a string template. 
+
+For example, you might want to drop a React component into your template:
 
 ```jsx
 import React from 'react';
 import { runty } from 'runty';
 
-const runt = runty();
-
-// trigger an array result when defining a template:
-const template = runt('Drop a react component {%component} into your template.');
+// compile an array template:
+const template = runty.array('Drop a react component {%component} into your template.');
 
 const Component = () => {
   const values = template({ component: <button key="foo" /> });
 
   return (
     <div>
-      {values} // renders: ['Drop a react component ', <button key="foo" />, ' into your template.']
+      {values}
+      // renders: ['Drop a react component ', <button key="foo" />, ' into your template.']
     </div>
   );
 };
 ```
+
+You can even create custom functions that return React components:
+
+```jsx
+import React from 'react';
+import { runty } from 'runty';
+import { Link } from 'react-router-dom';
+
+const fns = {
+  link: ([label, path]) => (<Link key={`${label}-${path}`} to={path}>{label}</Link>)
+};
+
+const template = runty.array('You can {$link(Click here,/some/path)} to learn more.', { fns });
+
+const Component = () => {
+  const values = template();
+
+  return (
+    <div>
+      {values}
+      // renders: [
+      //   'You can ',
+      //   <Link key="Click here-/some/path" to="/some/path">Click here</Link>,
+      //   ' into your template.'
+      // ]
+    </div>
+  );
+};
+```
+
+## Recommended reading
+
+Now that you've seen a little bit about what runty can do, dive deeper into the details:
+
+* [Learn the runty template syntax](/docs/syntax)
+* [Read the API docs](/docs/api)
+* [See what's available in the fns standard library](/docs/fns)
+* [TypeScript documentation](/docs/typescript)

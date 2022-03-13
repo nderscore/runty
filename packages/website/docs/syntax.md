@@ -37,11 +37,11 @@ title: Template Syntax
         Welcome, {%firstName?{%firstName}{%lastName? {%lastName}}:Guest}!
         ```
 
-*   Value expressions and the condition of a conditional expression contain either a **Variable Reference** or a **Function Call**.
+*   Value expressions and the condition of a conditional expression contain either a **Variable Accessor** or a **Function Call**.
 
-    *   **Variable References** are indicated by a `%` followed by a property name or a chain of `.`-separated
-        property names. They retrieve values from the dictionary of variables passed to the template at the time of
-        execution.
+    *   **Variable Accessors** are indicated by a `%` followed by a property name or a chain of `.`-separated
+        property names. They retrieve values from the dictionary of variables passed to the template at the time
+        of execution.
 
         ```
         %variableName
@@ -50,12 +50,12 @@ title: Template Syntax
         %someArray.3.name
         ```
 
-        If a value is not found, a variable reference will resolve to an empty string `''`.
+        If a value is not found, a variable accessor will resolve to an empty string `''`.
 
     *   **Function Calls** are indicated by a `$` followed by a function name and a pair of parenthesis `()` which
         may optionally contain a list of `,`-separated arguments.
 
-        Valid arguments for function calls are variable references, plain strings, and nested function calls. Functions may accept any number of arguments.
+        Valid arguments for function calls are variable accessors, plain strings, and nested function calls. Functions may accept any number of arguments.
 
         ```
         $functionName()
