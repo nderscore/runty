@@ -4,7 +4,7 @@ title: Standard Library (fns)
 
 ## Introduction
 
-The standard library, `fns`, is a set of small, template-friendly utility functions covering a broad range of string template needs.
+The standard library, `fns`, is a set of small, template-friendly utility functions covering a broad range of common string templating needs, ranging from logic control to formatting to manipulation.
 
 ```javascript
 // import the entire standard library
@@ -14,7 +14,7 @@ import { runty, fns } from 'runty';
 const runt = runty({ fns });
 ```
 
-Because the standard library covers a broad range of use cases, you will rarely want to import the entire collection. The standard library is also made available as classes of functions, and as independent functions which can be imported individually.
+Because the standard library covers a broad range of use cases, you might not want to import the entire collection. The standard library is also made available as classes of functions, and as independent functions which can be imported individually and tree-shaken.
 
 ```javascript
 // import a class of functions

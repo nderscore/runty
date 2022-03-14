@@ -45,6 +45,10 @@ module.exports = {
               to: 'docs/api',
             },
             {
+              label: 'Template syntax',
+              to: 'docs/syntax',
+            },
+            {
               label: 'Standard Library (fns)',
               to: 'docs/fns',
             },
