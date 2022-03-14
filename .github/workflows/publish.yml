@@ -13,10 +13,10 @@ jobs:
       with:
         node-version: '14.x'
         registry-url: 'https://registry.npmjs.org'
-    - run: yarn --frozen-lockfile
-    - run: yarn lint
-    - run: yarn build
-    - run: yarn test
-    - run: yarn publish
+    - run: yarn --immutable
+    - run: yarn runty lint
+    - run: yarn runty build
+    - run: yarn runty test
+    - run: yarn runty publish
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "outDir": "./dist/cjs",
+    "target": "ES2020",
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "declaration": true,
+    "declarationDir": "./dist/types",
+    "baseUrl": "./src"
+  },
+  "include": ["./src/**/*", "./size-estimate", "./tsup.config.ts"]
+}

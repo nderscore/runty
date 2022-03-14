@@ -1,0 +1,37 @@
+{
+  "name": "runty-website",
+  "version": "0.2.0",
+  "private": true,
+  "scripts": {
+    "docusaurus": "docusaurus",
+    "start": "docusaurus start",
+    "build": "docusaurus build",
+    "swizzle": "docusaurus swizzle",
+    "deploy": "docusaurus deploy",
+    "serve": "docusaurus serve"
+  },
+  "dependencies": {
+    "@cmfcmf/docusaurus-search-local": "0.10.0",
+    "@docusaurus/core": "2.0.0-beta.17",
+    "@docusaurus/preset-classic": "2.0.0-beta.17",
+    "@mdx-js/react": "1.6.22",
+    "clsx": "1.1.1",
+    "lodash": "4.17.21",
+    "prism-react-renderer": "1.3.1",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "runty": "workspace:*"
+  },
+  "browserslist": [
+    "last 2 ChromeAndroid versions",
+    "last 2 Chrome versions",
+    "last 2 iOS versions",
+    "last 2 Safari versions",
+    "last 2 Samsung versions",
+    "last 2 FirefoxAndroid versions",
+    "last 2 Firefox versions",
+    "last 2 OperaMobile versions",
+    "last 2 Opera versions",
+    "last 2 Edge versions"
+  ]
+}

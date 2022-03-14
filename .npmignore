@@ -1,7 +1,0 @@
-.github/
-coverage/
-src/
-website/
-tests/
-jest.config.js
-jsconfig.json

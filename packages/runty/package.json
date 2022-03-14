@@ -1,0 +1,62 @@
+{
+  "name": "runty",
+  "author": "_nderscore",
+  "version": "0.2.0",
+  "description": "Extensible conditional string micro templates",
+  "keywords": [
+    "string",
+    "template",
+    "interpolation",
+    "substitution",
+    "expansion"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "tsup",
+    "test": "jest",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "lint:staged": "lint-staged",
+    "estimate:size": "yarn estimate:build:engine && yarn estimate:build:fns && yarn estimate:check",
+    "estimate:build:engine": "tsup size-estimate/engine-only/index.ts --outDir temp/engine-only",
+    "estimate:build:fns": "tsup size-estimate/with-fns/index.ts --outDir temp/with-fns",
+    "estimate:check": "minified-size temp/engine-only/index.mjs temp/with-fns/index.mjs"
+  },
+  "homepage": "https://runty.js.org",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nderscore/runty"
+  },
+  "engines": {
+    "node": ">= 14"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    }
+  },
+  "sideEffects": false,
+  "devDependencies": {
+    "@types/jest": "27.4.0",
+    "@typescript-eslint/eslint-plugin": "5.13.0",
+    "@typescript-eslint/parser": "5.13.0",
+    "eslint": "8.10.0",
+    "eslint-config-prettier": "8.4.0",
+    "eslint-plugin-jest": "26.1.1",
+    "eslint-plugin-prettier": "4.0.0",
+    "eslint-plugin-simple-import-sort": "7.0.0",
+    "jest": "27.5.1",
+    "lint-staged": "12.3.5",
+    "minified-size": "2.3.1",
+    "prettier": "2.5.1",
+    "ts-jest": "27.1.3",
+    "tsup": "5.12.1",
+    "typescript": "4.6.2"
+  },
+  "packageManager": "yarn@3.2.0"
+}

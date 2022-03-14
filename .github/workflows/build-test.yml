@@ -10,9 +10,9 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: '14.x'
-    - run: yarn --frozen-lockfile
-    - run: yarn lint
-    - run: yarn build
-    - run: yarn test
+    - run: yarn --immutable
+    - run: yarn runty lint
+    - run: yarn runty build
+    - run: yarn runty test
       env:
         CI: true
