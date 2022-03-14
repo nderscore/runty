@@ -55,12 +55,14 @@ const features = [
     `,
     extra: <>
       <p>
-        <strong>Runty engine only:</strong> (estimated)<br />
-        10.1kB / 4.11kB minified / 1.77kB min+gzip
+        <strong>Template engine alone:</strong>
+        <br />
+        ~4.11kB minified (~1.77kB gzipped)
       </p>
       <p>
-        <strong>Runty with fns standard library:</strong> (estimated)<br />
-        15.4kB / 6.55kB minified / 2.48kB min+gzip
+        <strong>With entire fns standard library:</strong>
+        <br />
+        ~6.55kB minified (~2.48kB gzipped)
       </p>
     </>
   },
