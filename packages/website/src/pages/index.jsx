@@ -6,6 +6,25 @@ import { array } from 'runty';
 import styles from './index.module.css';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import Highlight, { defaultProps } from "prism-react-renderer";
+import palenight from 'prism-react-renderer/themes/palenight';
+
+const teaserCode = `
+import { runty } from 'runty';
+
+const fns = { plural: ([num]) => Number(num) !== 1 };
+
+const template = runty.string(
+  'There {$plural(%count)?are:is} {%count} item{$plural(%count)?s} in your cart.',
+  { fns }
+);
+
+template({ count: 1 });
+// "There is 1 item in your cart."
+
+template({ count: 2 });
+// "There are 3 items in your cart."
+`.trim();
 
 const opts = {
   fns: {
@@ -59,7 +78,7 @@ const features = [
     `,
   },
   {
-    title: 'TypeScript-friendly',
+    title: 'TypeScript friendly',
     description: `
       Built with TypeScript, so it comes with types!
     `,
@@ -89,7 +108,7 @@ function Home() {
           <p className="hero__subtitle">{siteConfig.tagline}</p>
           <div className={styles.buttons}>
             <Link
-              className="button button--info button--lg"
+              className="button button--secondary button--lg"
               to={useBaseUrl('docs/')}
             >
               Get Started
@@ -101,6 +120,21 @@ function Home() {
               Try the Demo
             </Link>
           </div>
+        </div>
+        <div className={clsx("container", styles.teaserCode)}>
+          <Highlight {...defaultProps} code={teaserCode} language="javascript" theme={palenight}>
+            {({ className, style, tokens, getLineProps, getTokenProps }) => (
+              <pre className={className} style={style}>
+                {tokens.map((line, i) => (
+                  <div {...getLineProps({ line, key: i })}>
+                    {line.map((token, key) => (
+                      <span {...getTokenProps({ token, key })} />
+                    ))}
+                  </div>
+                ))}
+              </pre>
+            )}
+          </Highlight>
         </div>
       </header>
       <main>
