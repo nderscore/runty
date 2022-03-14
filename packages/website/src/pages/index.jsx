@@ -22,7 +22,7 @@ const template = runty.string(
 template({ count: 1 });
 // "There is 1 item in your cart."
 
-template({ count: 2 });
+template({ count: 3 });
 // "There are 3 items in your cart."
 `.trim();
 
