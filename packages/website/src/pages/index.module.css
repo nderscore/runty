@@ -11,13 +11,14 @@
 
 @media screen and (max-width: 966px) {
   .heroBanner {
+    gap: 2rem;
     padding: 2rem;
   }
 }
 
 .teaserCode {
   text-align: initial;
-  max-width: 720px;
+  max-width: 720px !important;
 }
 
 .buttons {
