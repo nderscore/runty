@@ -14,6 +14,29 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@algolia/autocomplete-core@npm:1.5.3":
+  version: 1.5.3
+  resolution: "@algolia/autocomplete-core@npm:1.5.3"
+  dependencies:
+    "@algolia/autocomplete-shared": 1.5.3
+  checksum: fabc99a50122d406e8d1cd84e40a51ecc970215e194c968ca8a5a90712ba130e3e5ca48792caf845beb95a4fa8095bb02f68c134098d9b1f1b510d720f52be23
+  languageName: node
+  linkType: hard
+
+"@algolia/autocomplete-js@npm:^1.5.1":
+  version: 1.5.3
+  resolution: "@algolia/autocomplete-js@npm:1.5.3"
+  dependencies:
+    "@algolia/autocomplete-core": 1.5.3
+    "@algolia/autocomplete-preset-algolia": 1.5.3
+    "@algolia/autocomplete-shared": 1.5.3
+    preact: ^10.0.0
+  peerDependencies:
+    "@algolia/client-search": ^4.5.1
+  checksum: 958e560a9f41ffcf7f809022d808291db267903e2df278782f94d9a081d7ba62b8acea0585868be558fb1e18e996882a83d3b51e1cb711a4e2060ec6fde6a46f
+  languageName: node
+  linkType: hard
+
 "@algolia/autocomplete-preset-algolia@npm:1.5.2":
   version: 1.5.2
   resolution: "@algolia/autocomplete-preset-algolia@npm:1.5.2"
@@ -26,10 +49,36 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@algolia/autocomplete-preset-algolia@npm:1.5.3":
+  version: 1.5.3
+  resolution: "@algolia/autocomplete-preset-algolia@npm:1.5.3"
+  dependencies:
+    "@algolia/autocomplete-shared": 1.5.3
+  peerDependencies:
+    "@algolia/client-search": ^4.9.1
+    algoliasearch: ^4.9.1
+  checksum: bf02fbc26a0bc422b80d472842568a90430e13529cacc7cd48abfa40a12128810be3a955319710da47909c10226fdd98a8961ae8b09bf34511f86de40c03fea9
+  languageName: node
+  linkType: hard
+
 "@algolia/autocomplete-shared@npm:1.5.2":
   version: 1.5.2
   resolution: "@algolia/autocomplete-shared@npm:1.5.2"
   checksum: 35d60ea6c38d0cae79e431460e3014da5a71408061fafa9bb5882e91de26dd923c18b5ed905fbea87639875f1d0c0857057a27eac6e786856646b8553a2aa61f
+  languageName: node
+  linkType: hard
+
+"@algolia/autocomplete-shared@npm:1.5.3":
+  version: 1.5.3
+  resolution: "@algolia/autocomplete-shared@npm:1.5.3"
+  checksum: e0edc2fe473b90015197394360f358a7d0472a790925814c09a3984e2ce199f9b7b14b59f21b42c494fdd2bc621c57226f763acc47d50c8b6f46d0240104211d
+  languageName: node
+  linkType: hard
+
+"@algolia/autocomplete-theme-classic@npm:^1.5.1":
+  version: 1.5.3
+  resolution: "@algolia/autocomplete-theme-classic@npm:1.5.3"
+  checksum: 6e07fe562ac6fd4b43d3bb6b38363a01d32c6ca5306388aaf87080e15f2a2a870b814ae6a8b9a845d586d2fa717d2c2ef2627eb539cb51c51b83a1dee574fc11
   languageName: node
   linkType: hard
 
@@ -102,7 +151,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@algolia/client-search@npm:4.12.2":
+"@algolia/client-search@npm:4.12.2, @algolia/client-search@npm:^4.12.0":
   version: 4.12.2
   resolution: "@algolia/client-search@npm:4.12.2"
   dependencies:
@@ -1638,6 +1687,28 @@ __metadata:
   version: 0.2.3
   resolution: "@bcoe/v8-coverage@npm:0.2.3"
   checksum: 850f9305536d0f2bd13e9e0881cb5f02e4f93fad1189f7b2d4bebf694e3206924eadee1068130d43c11b750efcc9405f88a8e42ef098b6d75239c0f047de1a27
+  languageName: node
+  linkType: hard
+
+"@cmfcmf/docusaurus-search-local@npm:0.10.0":
+  version: 0.10.0
+  resolution: "@cmfcmf/docusaurus-search-local@npm:0.10.0"
+  dependencies:
+    "@algolia/autocomplete-js": ^1.5.1
+    "@algolia/autocomplete-theme-classic": ^1.5.1
+    "@algolia/client-search": ^4.12.0
+    algoliasearch: ^4.12.0
+    cheerio: ^1.0.0-rc.9
+    clsx: ^1.1.1
+    lunr-languages: ^1.4.0
+    mark.js: ^8.11.1
+  peerDependencies:
+    "@docusaurus/core": ^v2.0.0-beta.15
+    nodejieba: ^2.5.0
+  peerDependenciesMeta:
+    nodejieba:
+      optional: true
+  checksum: 70ff5c226e6a3cc55ffe56c6a2eacee9bb0c101a402f0337031f804f2eb2bf6c5c71b007d894808cb62d03ccff854ea40fd59705f3c353d03921b730cc10b60b
   languageName: node
   linkType: hard
 
@@ -3767,7 +3838,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"algoliasearch@npm:^4.0.0, algoliasearch@npm:^4.12.1":
+"algoliasearch@npm:^4.0.0, algoliasearch@npm:^4.12.0, algoliasearch@npm:^4.12.1":
   version: 4.12.2
   resolution: "algoliasearch@npm:4.12.2"
   dependencies:
@@ -4898,7 +4969,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cheerio@npm:^1.0.0-rc.10":
+"cheerio@npm:^1.0.0-rc.10, cheerio@npm:^1.0.0-rc.9":
   version: 1.0.0-rc.10
   resolution: "cheerio@npm:1.0.0-rc.10"
   dependencies:
@@ -9998,6 +10069,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lunr-languages@npm:^1.4.0":
+  version: 1.9.0
+  resolution: "lunr-languages@npm:1.9.0"
+  checksum: 19da5df19ba77bc5b91653ed801676f2cb6d4f38dc5fd1d5446d909e4134c54e206f97715814abdeb6792bd4e21915259a8c3e02b3a8727ec8545f2a6d13dd11
+  languageName: node
+  linkType: hard
+
 "make-dir@npm:^3.0.0, make-dir@npm:^3.0.2, make-dir@npm:^3.1.0":
   version: 3.1.0
   resolution: "make-dir@npm:3.1.0"
@@ -10044,6 +10122,13 @@ __metadata:
   dependencies:
     tmpl: 1.0.5
   checksum: b38a025a12c8146d6eeea5a7f2bf27d51d8ad6064da8ca9405fcf7bf9b54acd43e3b30ddd7abb9b1bfa4ddb266019133313482570ddb207de568f71ecfcf6060
+  languageName: node
+  linkType: hard
+
+"mark.js@npm:^8.11.1":
+  version: 8.11.1
+  resolution: "mark.js@npm:8.11.1"
+  checksum: aa6b9ae1c67245348d5b7abd253ef2acd6bb05c6be358d7d192416d964e42665fc10e0e865591c6f93ab9b57e8da1f23c23216e8ebddb580905ea7a0c0df15d4
   languageName: node
   linkType: hard
 
@@ -11575,6 +11660,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"preact@npm:^10.0.0":
+  version: 10.6.6
+  resolution: "preact@npm:10.6.6"
+  checksum: d6a9581b222c60595f987be28738b68dabb3045f72043e2619af81e9ca00b2b0942717642bcfcaab77a0afa50a97cd35039139c7f425a62a4f02ceb793d8ef83
+  languageName: node
+  linkType: hard
+
 "prelude-ls@npm:^1.2.1":
   version: 1.2.1
   resolution: "prelude-ls@npm:1.2.1"
@@ -12564,6 +12656,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "runty-website@workspace:packages/website"
   dependencies:
+    "@cmfcmf/docusaurus-search-local": 0.10.0
     "@docusaurus/core": 2.0.0-beta.17
     "@docusaurus/preset-classic": 2.0.0-beta.17
     "@mdx-js/react": 1.6.22
