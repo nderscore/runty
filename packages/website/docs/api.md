@@ -21,7 +21,7 @@ const template = runty.string('template', {/* options */});
 const template = string('template', {/* options */});
 
 // define a template with array output:
-const template = array.array('template', {/* options */});
+const template = runty.array('template', {/* options */});
 
 // or use the array only export:
 const template = array('template', {/* options */});
