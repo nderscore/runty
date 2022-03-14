@@ -2,6 +2,6 @@
 module.exports = {
   sidebar: {
     Runty: ['get-started', 'syntax', 'api', 'fns', 'typescript'],
-    Guides: ['custom-fns'],
+    Guides: ['migrating-from-0-1-x', 'custom-fns'],
   },
 };
