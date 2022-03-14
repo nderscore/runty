@@ -17,6 +17,6 @@ jobs:
     - run: yarn runty lint
     - run: yarn runty build
     - run: yarn runty test
-    - run: yarn runty publish
+    - run: cd packages/runty && npm publish
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
