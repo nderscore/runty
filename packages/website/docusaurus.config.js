@@ -74,7 +74,7 @@ module.exports = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
-          editUrl: 'https://github.com/nderscore/runty/edit/master/website/',
+          editUrl: 'https://github.com/nderscore/runty/edit/master/packages/website/',
         },
         googleAnalytics: {
           trackingID: 'UA-179582829-1',
