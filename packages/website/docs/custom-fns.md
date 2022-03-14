@@ -6,7 +6,7 @@ title: Extending With Custom Functions
 
 Runty is built to be extended with custom functionality by defining functions in the `fns` configuration option. All functions defined in this object are made available for templates to use in expressions.
 
-A [Runty Function](api.md#runty-function) recieves two main arguments:
+A [Runty Function](api#runty-function) recieves two main arguments:
 
 * An array of arguments of arbitrary length that were passed to the function in the template. This is the primary method of accepting input.
 * A reference to the variables dictionary to allow for argumentless functions that expect specific data from variables. This is also used internally by the getter function that powers `%variable.expressions`.
@@ -85,4 +85,4 @@ try {
 
 ## More Examples
 
-Want to see more example runty functions? Check out the [source code](https://github.com/nderscore/runty/tree/master/src/fns) for our standard library fns on github.
+Want to see more example runty functions? Check out the [source code](https://github.com/nderscore/runty/tree/master/packages/runty/src/fns) of our standard library fns on github.
