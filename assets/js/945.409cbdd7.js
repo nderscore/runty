@@ -1,1 +1,0 @@
-(self.webpackChunkrunty_website=self.webpackChunkrunty_website||[]).push([[945],{6945:function(e,s,t){"use strict";t.r(s)}}]);
