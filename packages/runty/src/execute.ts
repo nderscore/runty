@@ -5,7 +5,6 @@ import {
   NODETYPE,
   ReturnValues,
   RuntyFunctionDictionary,
-  ValueOf,
   VariableDictionary,
 } from './types';
 
@@ -63,4 +62,4 @@ const walkBranch = <V extends VariableDictionary, F extends RuntyFunctionDiction
 export const execute = <V extends VariableDictionary, F extends RuntyFunctionDictionary<V>>(
   tree: BranchNode<V, F>,
   variables: V = {} as V
-): ReturnValues<V, F>[] => walkBranch<V, F>(tree, variables);
+) => walkBranch<V, F>(tree, variables);

@@ -1,6 +1,6 @@
 import { execute } from './execute';
 import { parse } from './parse';
-import type { DefaultVariableDictionary, RuntyOptions, RuntyPartialOptions, VariableDictionary } from './types';
+import type { RuntyOptions, RuntyPartialOptions, VariableDictionary } from './types';
 
 const DEFAULT_OPTIONS = {
   asArray: false,
@@ -8,7 +8,7 @@ const DEFAULT_OPTIONS = {
   maxDepth: 8,
 };
 
-export const string = <V extends VariableDictionary = DefaultVariableDictionary>(
+export const string = <V extends VariableDictionary = VariableDictionary>(
   template: string,
   options: RuntyPartialOptions<V> = {}
 ) => {
@@ -17,11 +17,11 @@ export const string = <V extends VariableDictionary = DefaultVariableDictionary>
     ...options,
   };
   const tree = parse<V>(template, opts);
-  const result = (variables: V) => execute<V, typeof opts['fns']>(tree, variables).join('');
+  const result = (variables: V) => execute<V, typeof options['fns']>(tree, variables).join('');
   return result;
 };
 
-export const array = <V extends VariableDictionary = DefaultVariableDictionary>(
+export const array = <V extends VariableDictionary = VariableDictionary>(
   template: string,
   options: RuntyPartialOptions<V> = {}
 ) => {
@@ -30,7 +30,7 @@ export const array = <V extends VariableDictionary = DefaultVariableDictionary>(
     ...options,
   };
   const tree = parse<V>(template, opts);
-  const result = (variables: V) => execute<V, typeof opts['fns']>(tree, variables);
+  const result = (variables: V) => execute<V, typeof options['fns']>(tree, variables);
   return result;
 };
 

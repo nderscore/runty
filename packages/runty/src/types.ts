@@ -5,7 +5,7 @@ export enum NODETYPE {
   VALUE,
 }
 
-export type VariableDictionary<T = unknown> = Record<string, T | T[]> | T[];
+export type VariableDictionary = Record<string | number, unknown>;
 
 export type ValueOf<V extends VariableDictionary> = V[keyof V];
 
@@ -13,17 +13,16 @@ export type NestedValueOf<V extends VariableDictionary> = ValueOf<V> extends Var
   ? ValueOf<V> | NestedValueOf<V>
   : ValueOf<V>;
 
-export type DefaultVariableDictionary = VariableDictionary<unknown>;
-
 export interface RuntyFunction<V extends VariableDictionary> {
-  (args: unknown[], variables: V): unknown;
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  (args: unknown[], variables: V): unknown & {};
 }
 
 export type RuntyFunctionDictionary<V extends VariableDictionary> = Record<string, RuntyFunction<V>>;
 
 export type ReturnValues<V extends VariableDictionary, F extends RuntyFunctionDictionary<V>> =
   | string
-  | ReturnType<F[keyof F]>;
+  | ReturnType<ValueOf<F>>;
 
 export type RuntyOptions<V extends VariableDictionary> = {
   fns: RuntyFunctionDictionary<V>;

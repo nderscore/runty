@@ -5,8 +5,6 @@ import {
   ConditionNode,
   FunctionNode,
   NODETYPE,
-  ReturnValues,
-  RuntyFunction,
   RuntyFunctionDictionary,
   RuntyNode,
   RuntyOptions,
