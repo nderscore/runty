@@ -8,9 +8,7 @@ Since v0.2.0, runty has been rewritten in TypeScript and comes packaged with typ
 
 ## Typing Templates
 
-Runty's template functions (`runty.string()` / `runty.array()`) accept two generic slots, `V` (the variable dictionary) and `R` (return types of `fns`). 
-
-The first slot allows you to constrain the type of the variable dictionary passed to your template.
+Runty's template functions (`runty.string()` / `runty.array()`) accept a generic slot, `V`, which allows you to constrain the type of the variable dictionary passed to your template.
 
 ```typescript
 import { runty } from 'runty';
@@ -29,37 +27,30 @@ template();
 
 ## Typing Custom Functions
 
-All functions passed to `fns` are expected to match the shape of `RuntyFunction<V, R>` in the type definitions.
+All functions passed to `fns` are expected to match the shape of `RuntyFunction<V>` in the type definitions.
 
-To write a custom runty function, import types `VariableDictionary` (the default type for variable dictionaries) and `ReturnValues` (the default type for what functions can return) and use the following typing:
+Most custom functions don't need to do anything special for their types. They just need to accept `unknown[]` in the first argument, representing the arguments passed the function. 
+
+If you're using array output templates, the return values of your functions will determine the return type of your template.
 
 ```typescript
-import type { ReturnValues, VariableDictionary } from 'runty';
+const myCustomFn = (args: unknown[]) => {
+    // ...
+};
+```
 
-const myCustomFn = <V extends VariableDictionary, R extends ReturnValues<V>>(
-    args: R[],
+If your custom function uses the second argument to access the variable dictionary, you'll need to import the `VariableDictionary` type (the default type for variable dictionaries) and accept a generic slot that extends it (or use your own specific data types) to use for the variables argument.
+
+```typescript
+import type { VariableDictionary } from 'runty';
+
+const myCustomFn = <V extends VariableDictionary>(
+    args: unknown[],
     variables: V
-): R => {
+) => {
     // ...
 };
 ```
 
 See the [source code](https://github.com/nderscore/runty/tree/master/packages/runty/src/fns) of our standard library fns on github for more examples.
 
-If your custom function needs to return something other than a scalar value, such as dropping a react element into an array output template, you may need to customize the return values generic slot:
-
-```tsx
-import type { Element } from 'react';
-import type { ReturnValues, VariableDictionary } from 'runty';
-
-const myCustomFn = <V extends VariableDictionary, R extends ReturnValues<V> & Element>(
-    args: R[],
-    variables: V
-): Element => (<b>JSX!</b>);
-
-// VariableDictionary is the default dictionary type
-const template = <VariableDictionary, ReturnValues<VariableDictionary> & Element>(
-    'This is my template {$myCustomFn()}',
-    { fns: { myCustomFn } }
-);
-```
