@@ -1,14 +1,9 @@
-import { ReturnValues, VariableDictionary } from '../types';
-
-export const rpt = <V extends VariableDictionary, R extends ReturnValues<V>>([
-  str = '' as R,
-  count = 0 as R,
-]: R[]): R => {
+export const rpt = ([str = '', count = 0]: unknown[]) => {
   const c = Number(count);
 
   if (isNaN(c) || c < 0) {
-    return '' as R;
+    return '';
   }
 
-  return String(str).repeat(Number(count)) as R;
+  return String(str).repeat(Number(count));
 };

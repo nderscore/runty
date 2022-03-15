@@ -5,60 +5,61 @@ export enum NODETYPE {
   VALUE,
 }
 
-export type VariableDictionary<T = unknown> = Record<string | number | symbol, T>;
+export type VariableDictionary<T = unknown> = Record<string, T | T[]> | T[];
 
 export type ValueOf<V extends VariableDictionary> = V[keyof V];
 
 export type NestedValueOf<V extends VariableDictionary> = ValueOf<V> extends VariableDictionary
-  ? NestedValueOf<ValueOf<V>>
+  ? ValueOf<V> | NestedValueOf<V>
   : ValueOf<V>;
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface NestedVariableDictionary<T> extends VariableDictionary<T | NestedVariableDictionary<T>> {}
+export type DefaultVariableDictionary = VariableDictionary<unknown>;
 
-export type DefaultVariableDictionary = NestedVariableDictionary<string | number | boolean>;
-
-export type ReturnValues<V extends VariableDictionary> = string | number | boolean | NestedValueOf<V>;
-
-export interface RuntyFunction<V extends VariableDictionary, R extends ReturnValues<V>> {
-  (args: R[], variables: V): R;
+export interface RuntyFunction<V extends VariableDictionary> {
+  (args: unknown[], variables: V): unknown;
 }
 
-export type RuntyOptions<V extends VariableDictionary, R extends ReturnValues<V>> = {
-  fns: Record<string, RuntyFunction<V, R>>;
+export type RuntyFunctionDictionary<V extends VariableDictionary> = Record<string, RuntyFunction<V>>;
+
+export type ReturnValues<V extends VariableDictionary, F extends RuntyFunctionDictionary<V>> =
+  | string
+  | ReturnType<F[keyof F]>;
+
+export type RuntyOptions<V extends VariableDictionary> = {
+  fns: RuntyFunctionDictionary<V>;
   maxDepth: number;
 };
 
-export type RuntyPartialOptions<V extends VariableDictionary, R extends ReturnValues<V>> = {
-  fns?: Record<string, RuntyFunction<V, R>>;
+export type RuntyPartialOptions<V extends VariableDictionary> = {
+  fns?: RuntyFunctionDictionary<V>;
   maxDepth?: number;
 };
 
-export type ValueNode<V extends VariableDictionary, R extends ReturnValues<V>> = {
+export type ValueNode = {
   type: NODETYPE.VALUE;
-  value: R;
+  value: string;
 };
 
-export type BranchNode<V extends VariableDictionary, R extends ReturnValues<V>> = {
+export type BranchNode<V extends VariableDictionary, F extends RuntyFunctionDictionary<V>> = {
   type: NODETYPE.BRANCH;
-  nodes: (ValueNode<V, R> | FunctionNode<V, R> | ConditionNode<V, R>)[];
+  nodes: (ValueNode | FunctionNode<V, F> | ConditionNode<V, F>)[];
 };
 
-export type FunctionNode<V extends VariableDictionary, R extends ReturnValues<V>> = {
+export type FunctionNode<V extends VariableDictionary, F extends RuntyFunctionDictionary<V>> = {
   type: NODETYPE.FUNCTION;
-  fn: RuntyFunction<V, R>;
-  args: (ValueNode<V, R> | FunctionNode<V, R>)[];
+  fn: ValueOf<F>;
+  args: (ValueNode | FunctionNode<V, F>)[];
 };
 
-export type ConditionNode<V extends VariableDictionary, R extends ReturnValues<V>> = {
+export type ConditionNode<V extends VariableDictionary, F extends RuntyFunctionDictionary<V>> = {
   type: NODETYPE.CONDITION;
-  condition: FunctionNode<V, R>;
-  ifCase: BranchNode<V, R>;
-  elseCase?: BranchNode<V, R>;
+  condition: FunctionNode<V, F>;
+  ifCase: BranchNode<V, F>;
+  elseCase?: BranchNode<V, F>;
 };
 
-export type RuntyNode<V extends VariableDictionary, R extends ReturnValues<V>> =
-  | BranchNode<V, R>
-  | FunctionNode<V, R>
-  | ConditionNode<V, R>
-  | ValueNode<V, R>;
+export type RuntyNode<V extends VariableDictionary, F extends RuntyFunctionDictionary<V>> =
+  | BranchNode<V, F>
+  | FunctionNode<V, F>
+  | ConditionNode<V, F>
+  | ValueNode;

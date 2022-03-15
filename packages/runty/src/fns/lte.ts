@@ -1,13 +1,11 @@
-import { ReturnValues, VariableDictionary } from '../types';
-
-export const lte = <V extends VariableDictionary, R extends ReturnValues<V>>([a, b]: R[]): R => {
+export const lte = ([a, b]: unknown[]) => {
   if (typeof a === 'number' || typeof b === 'number') {
-    return (Number(a) <= Number(b)) as R;
+    return Number(a) <= Number(b);
   }
 
   if (typeof a === 'string' || typeof b === 'string') {
-    return (String(a) <= String(b)) as R;
+    return String(a) <= String(b);
   }
 
-  return (a <= b) as R;
+  return a <= b;
 };

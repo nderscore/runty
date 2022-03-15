@@ -1,9 +1,7 @@
-import { ReturnValues, VariableDictionary } from '../types';
-
-export const join = <V extends VariableDictionary, R extends ReturnValues<V>>([arr, joinString = '' as R]: R[]): R => {
+export const join = ([arr, joinString = '']: unknown[]) => {
   if (!Array.isArray(arr)) {
-    return '' as R;
+    return '';
   }
 
-  return arr.join(String(joinString)) as R;
+  return arr.join(String(joinString));
 };

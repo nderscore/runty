@@ -4,7 +4,7 @@ const escapesExample = 'Empty function arguments {$f(,,)}{$f(%a,,%a)}{$f(,,%a)}{
 
 describe(escapesExample, () => {
   it('should correctly parse empty function arguments as empty strings', () => {
-    const f = jest.fn((() => 'f') as RuntyFunction<{ a: string }, string>);
+    const f = jest.fn((() => 'f') as RuntyFunction<{ a: string }>);
 
     const result = runty.string(escapesExample, {
       fns: { f },

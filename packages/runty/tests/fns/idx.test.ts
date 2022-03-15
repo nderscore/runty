@@ -1,4 +1,4 @@
-import { idx, NestedVariableDictionary, runty } from 'runty';
+import { idx, runty } from 'runty';
 
 describe('fn idx', () => {
   const opts = { fns: { idx } };
@@ -13,6 +13,6 @@ describe('fn idx', () => {
     ['{$idx(asdf)}', {}, '-1'],
     ['{$idx()}', {}, '-1'],
   ])('given %s, %j, return %s', (template, values, output) => {
-    expect(runty.string<NestedVariableDictionary<string | number | string[]>>(template, opts)(values)).toBe(output);
+    expect(runty.string(template, opts)(values)).toBe(output);
   });
 });

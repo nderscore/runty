@@ -1,9 +1,7 @@
-import { ReturnValues, VariableDictionary } from '../types';
-
-export const idx = <V extends VariableDictionary, R extends ReturnValues<V>>([val = '' as R, search]: R[]): R => {
+export const idx = ([val = '', search]: unknown[]) => {
   if (Array.isArray(val)) {
-    return val.indexOf(search) as R;
+    return val.indexOf(search);
   }
 
-  return (search !== undefined && search !== '' ? String(val).indexOf(String(search)) : -1) as R;
+  return search !== undefined && search !== '' ? String(val).indexOf(String(search)) : -1;
 };

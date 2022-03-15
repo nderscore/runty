@@ -1,4 +1,4 @@
-import { ReturnValues, VariableDictionary } from './types';
+import { NestedValueOf, VariableDictionary } from './types';
 
 export const TOKENS = {
   ELSE_START: ':',
@@ -17,12 +17,9 @@ export const TOKENS = {
 
 export const stripEscapes = (str: string) => str.replace(/\\(.)/g, '$1');
 
-export const getterFn = <V extends VariableDictionary, R extends ReturnValues<V>>(
-  propertyNames: R[],
-  variables: V
-): R => {
+export const getterFn = <V extends VariableDictionary>(propertyNames: unknown[], variables: V) => {
   if (propertyNames.length === 0) {
-    return '' as R;
+    return '';
   }
-  return propertyNames.reduce((acc, next) => acc?.[String(next)] ?? '', variables) as R;
+  return propertyNames.reduce((acc, next) => acc?.[String(next)] ?? '', variables) as NestedValueOf<V>;
 };

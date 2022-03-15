@@ -1,4 +1,4 @@
-import { len, NestedVariableDictionary, runty } from 'runty';
+import { len, runty } from 'runty';
 
 describe('fn len', () => {
   const opts = { fns: { len } };
@@ -10,6 +10,6 @@ describe('fn len', () => {
     ['{$len(hello)}', {}, '5'],
     ['{$len()}', {}, '0'],
   ])('given %s, %j, return %s', (template, values, output) => {
-    expect(runty.string<NestedVariableDictionary<string | number | number[]>>(template, opts)(values)).toBe(output);
+    expect(runty.string(template, opts)(values)).toBe(output);
   });
 });

@@ -1,14 +1,23 @@
-import { BranchNode, ConditionNode, FunctionNode, NODETYPE, ReturnValues, VariableDictionary } from './types';
+import {
+  BranchNode,
+  ConditionNode,
+  FunctionNode,
+  NODETYPE,
+  ReturnValues,
+  RuntyFunctionDictionary,
+  ValueOf,
+  VariableDictionary,
+} from './types';
 
-const walkFunction = <V extends VariableDictionary, R extends ReturnValues<V>>(
-  node: FunctionNode<V, R>,
+const walkFunction = <V extends VariableDictionary, F extends RuntyFunctionDictionary<V>>(
+  node: FunctionNode<V, F>,
   variables: V
-): R => {
+) => {
   const { args, fn } = node;
   return fn(
     args.map((arg) => {
       if (arg.type === NODETYPE.FUNCTION) {
-        return walkFunction<V, R>(arg, variables);
+        return walkFunction<V, F>(arg, variables);
       }
       return arg.value;
     }),
@@ -16,42 +25,42 @@ const walkFunction = <V extends VariableDictionary, R extends ReturnValues<V>>(
   );
 };
 
-const walkCondition = <V extends VariableDictionary, R extends ReturnValues<V>>(
-  node: ConditionNode<V, R>,
+const walkCondition = <V extends VariableDictionary, F extends RuntyFunctionDictionary<V>>(
+  node: ConditionNode<V, F>,
   variables: V
-): R[] => {
+): ReturnValues<V, F>[] => {
   const { condition, ifCase, elseCase } = node;
 
-  const conditionResult = walkFunction<V, R>(condition, variables);
+  const conditionResult = walkFunction<V, F>(condition, variables);
 
   if (conditionResult === 0 || !!conditionResult) {
-    return walkBranch<V, R>(ifCase, variables);
+    return walkBranch<V, F>(ifCase, variables);
   }
 
   if (elseCase) {
-    return walkBranch<V, R>(elseCase, variables);
+    return walkBranch<V, F>(elseCase, variables);
   }
 
-  return ['' as R];
+  return [''];
 };
 
-const walkBranch = <V extends VariableDictionary, R extends ReturnValues<V>>(
-  node: BranchNode<V, R>,
+const walkBranch = <V extends VariableDictionary, F extends RuntyFunctionDictionary<V>>(
+  node: BranchNode<V, F>,
   variables: V
-): R[] => {
+): ReturnValues<V, F>[] => {
   const { nodes } = node;
   return nodes.flatMap((node) => {
     if (node.type === NODETYPE.CONDITION) {
-      return walkCondition<V, R>(node, variables);
+      return walkCondition<V, F>(node, variables);
     }
     if (node.type === NODETYPE.FUNCTION) {
-      return [walkFunction<V, R>(node, variables)];
+      return [walkFunction<V, F>(node, variables)];
     }
     return [node.value];
   });
 };
 
-export const execute = <V extends VariableDictionary, R extends ReturnValues<V>>(
-  tree: BranchNode<V, R>,
+export const execute = <V extends VariableDictionary, F extends RuntyFunctionDictionary<V>>(
+  tree: BranchNode<V, F>,
   variables: V = {} as V
-) => walkBranch(tree, variables);
+): ReturnValues<V, F>[] => walkBranch<V, F>(tree, variables);

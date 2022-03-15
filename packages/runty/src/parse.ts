@@ -7,6 +7,7 @@ import {
   NODETYPE,
   ReturnValues,
   RuntyFunction,
+  RuntyFunctionDictionary,
   RuntyNode,
   RuntyOptions,
   ValueNode,
@@ -21,35 +22,32 @@ enum MODE {
   TOP,
 }
 
-type NodeStackEntry<V extends VariableDictionary, R extends ReturnValues<V>> = [MODE, RuntyNode<V, R>];
+type NodeStackEntry<V extends VariableDictionary, F extends RuntyFunctionDictionary<V>> = [MODE, RuntyNode<V, F>];
 
-export const parse = <V extends VariableDictionary, R extends ReturnValues<V>>(
-  template: string,
-  options: RuntyOptions<V, R>
-) => {
+export const parse = <V extends VariableDictionary>(template: string, options: RuntyOptions<V>) => {
   const { fns, maxDepth } = options;
 
-  const createBranch = (): BranchNode<V, R> => ({
+  const createBranch = (): BranchNode<V, typeof options['fns']> => ({
     type: NODETYPE.BRANCH,
     nodes: [],
   });
 
-  const createFunctionExpression = (fn: RuntyFunction<V, R>): FunctionNode<V, R> => ({
+  const createFunctionExpression = (fn: ValueOf<typeof options['fns']>): FunctionNode<V, typeof options['fns']> => ({
     type: NODETYPE.FUNCTION,
     fn,
     args: [],
   });
 
-  const createValueNode = (value: R): ValueNode<V, R> => ({
+  const createValueNode = (value: string): ValueNode => ({
     type: NODETYPE.VALUE,
     value,
   });
 
   const tree = createBranch();
-  const stack: NodeStackEntry<V, R>[] = [];
+  const stack: NodeStackEntry<V, typeof options['fns']>[] = [];
 
   let currentMode = MODE.TOP as MODE;
-  let currentNode = tree as RuntyNode<V, R>;
+  let currentNode = tree as RuntyNode<V, typeof options['fns']>;
   let restTemplate = template;
 
   const getToken = (token: ValueOf<typeof TOKENS>) => {
@@ -71,7 +69,7 @@ export const parse = <V extends VariableDictionary, R extends ReturnValues<V>>(
 
   const getParentNode = () => stack[stack.length - 1];
 
-  const splitBranch = (nextMode: MODE, nextNode: RuntyNode<V, R>) => {
+  const splitBranch = (nextMode: MODE, nextNode: RuntyNode<V, typeof options['fns']>) => {
     stack.push([currentMode, currentNode]);
     currentMode = nextMode;
     currentNode = nextNode;
@@ -84,14 +82,14 @@ export const parse = <V extends VariableDictionary, R extends ReturnValues<V>>(
 
   const wrapNodeWithCondition = () => {
     const ifCase = createBranch();
-    const newNode: ConditionNode<V, R> = {
+    const newNode: ConditionNode<V, typeof options['fns']> = {
       type: NODETYPE.CONDITION,
-      condition: currentNode as FunctionNode<V, R>,
+      condition: currentNode as FunctionNode<V, typeof options['fns']>,
       ifCase,
     };
 
     const [, parentNode] = getParentNode();
-    const { nodes } = parentNode as BranchNode<V, R>;
+    const { nodes } = parentNode as BranchNode<V, typeof options['fns']>;
     nodes[nodes.length - 1] = newNode;
     currentNode = newNode;
 
@@ -103,7 +101,7 @@ export const parse = <V extends VariableDictionary, R extends ReturnValues<V>>(
     if (variableToken) {
       const getterNode = createFunctionExpression(getterFn);
 
-      getterNode.args = variableName.split('.').map((str) => createValueNode(str as R));
+      getterNode.args = variableName.split('.').map((str) => createValueNode(str));
       return getterNode;
     }
     return undefined;
@@ -162,7 +160,7 @@ export const parse = <V extends VariableDictionary, R extends ReturnValues<V>>(
       if (isIf) {
         const [elseConditionToken] = getToken(TOKENS.ELSE_START);
         if (elseConditionToken) {
-          const previousNode = terminateBranch() as ConditionNode<V, R>;
+          const previousNode = terminateBranch() as ConditionNode<V, typeof options['fns']>;
           const elseBranch = createBranch();
           previousNode.elseCase = elseBranch;
           splitBranch(MODE.ELSE, elseBranch);
@@ -181,19 +179,19 @@ export const parse = <V extends VariableDictionary, R extends ReturnValues<V>>(
 
       const stringPattern = isTop ? TOKENS.STRING_OUTER : isIf ? TOKENS.STRING_IF : TOKENS.STRING_ELSE;
       const [stringToken] = getToken(stringPattern);
-      nodes.push(createValueNode(stripEscapes(stringToken) as R));
+      nodes.push(createValueNode(stripEscapes(stringToken)));
     } else if (type === NODETYPE.FUNCTION) {
       const { args } = currentNode;
 
       const [separator] = getToken(TOKENS.FUNCTION_SEPARATOR);
       if (separator && args.length === 0) {
-        args.push(createValueNode('' as R));
+        args.push(createValueNode(''));
       }
 
       const [endFunctionToken] = getToken(TOKENS.FUNCTION_END);
       if (endFunctionToken) {
         if (separator) {
-          args.push(createValueNode('' as R));
+          args.push(createValueNode(''));
         }
 
         const [parentMode] = getParentNode();
@@ -237,7 +235,7 @@ export const parse = <V extends VariableDictionary, R extends ReturnValues<V>>(
         args.push(getterNode);
       } else {
         const [stringToken = ''] = getToken(TOKENS.STRING_FUNCTION);
-        args.push(createValueNode(stripEscapes(stringToken) as R));
+        args.push(createValueNode(stripEscapes(stringToken)));
       }
     }
   }
@@ -248,5 +246,5 @@ export const parse = <V extends VariableDictionary, R extends ReturnValues<V>>(
     throw new RSyntaxError(type, restTemplate);
   }
 
-  return currentNode as BranchNode<V, R>;
+  return currentNode as BranchNode<V, typeof options['fns']>;
 };

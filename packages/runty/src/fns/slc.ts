@@ -1,15 +1,11 @@
-import { ReturnValues, VariableDictionary } from '../types';
+import { NestedValueOf, VariableDictionary } from '../types';
 
-export const slc = <V extends VariableDictionary, R extends ReturnValues<V>>([
-  val = '' as R,
-  a = 0 as R,
-  bArg,
-]: R[]): R => {
+export const slc = <V extends VariableDictionary>([val = '', a = 0, bArg]: unknown[]) => {
   const b = bArg || bArg === 0 ? Number(bArg) : undefined;
 
   if (Array.isArray(val)) {
-    return val.slice(Number(a), b) as R;
+    return val.slice(Number(a), b) as NestedValueOf<V> & any[];
   }
 
-  return String(val).slice(Number(a), b) as R;
+  return String(val).slice(Number(a), b);
 };

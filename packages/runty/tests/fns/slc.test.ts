@@ -1,4 +1,4 @@
-import { NestedVariableDictionary, runty, slc } from 'runty';
+import { runty, slc } from 'runty';
 
 describe('fn slc', () => {
   const opts = { fns: { slc } };
@@ -13,6 +13,6 @@ describe('fn slc', () => {
     ['{$slc(abcdef,-2,)}', {}, 'ef'],
     ['{$slc()}', {}, ''],
   ])('given %s, %j, return %s', (template, values, output) => {
-    expect(runty.string<NestedVariableDictionary<string | number | number[]>>(template, opts)(values)).toBe(output);
+    expect(runty.string(template, opts)(values)).toBe(output);
   });
 });
