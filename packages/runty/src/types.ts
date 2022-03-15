@@ -22,6 +22,7 @@ export type RuntyFunctionDictionary<V extends VariableDictionary> = Record<strin
 
 export type ReturnValues<V extends VariableDictionary, F extends RuntyFunctionDictionary<V>> =
   | string
+  | NestedValueOf<V>
   | ReturnType<ValueOf<F>>;
 
 export type RuntyOptions<V extends VariableDictionary> = {
