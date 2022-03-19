@@ -11,7 +11,7 @@ The standard library, `fns`, is a set of small, template-friendly utility functi
 import { runty, fns } from 'runty';
 
 // pass as 'fns' option in the runty constructor
-const runt = runty({ fns });
+const runt = runty.string('some template', { fns });
 ```
 
 Because the standard library covers a broad range of use cases, you might not want to import the entire collection. The standard library is also made available as classes of functions, and as independent functions which can be imported individually and tree-shaken.
@@ -20,14 +20,14 @@ Because the standard library covers a broad range of use cases, you might not wa
 // import a class of functions
 import { runty, stringFns } from 'runty';
 
-const runt = runty({ fns: stringFns });
+const runt = runty.string('some template', { fns: stringFns });
 ```
 
 ```javascript
 // or only import the function(s) you need
 import { runty, eq, not } from 'runty';
 
-const runt = runty({
+const runt = runty.string('some template', {
   fns: { 
     eq,
     not
@@ -44,7 +44,7 @@ const runt = runty({
 ```javascript
 import { logicFns } from 'runty';
 
-const runt = runty({ fns: logicFns });
+const runt = runty.string('some template', { fns: logicFns });
 ```
 
 ### and
@@ -124,7 +124,7 @@ Boolean OR operation. Accepts any number of arguments. Evaluates to `true` when 
 ```javascript
 import { numberFns } from 'runty';
 
-const runt = runty({ fns: numberFns });
+const runt = runty.string('some template', { fns: numberFns });
 ```
 
 ### add
@@ -213,7 +213,7 @@ Subtraction. Evaluates two or more arguments as numbers and subtracts them.
 ```javascript
 import { stringFns } from 'runty';
 
-const runt = runty({ fns: stringFns });
+const runt = runty.string('some template', { fns: stringFns });
 ```
 
 ### cat
@@ -323,7 +323,7 @@ To Upper Case. Converts a string to all uppercase letters.
 ```javascript
 import { utilFns } from 'runty';
 
-const runt = runty({ fns: utilFns });
+const runt = runty.string('some template', { fns: utilFns });
 ```
 
 ### $ (variable getter)
